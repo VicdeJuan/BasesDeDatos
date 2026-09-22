@@ -1,5 +1,0 @@
-53:  Para cada empleado, cuenta cuántos clientes diferentes le han pagado.
-staff_id	first_name	last_name	distinct_customers_paid
-1	Mike	Hillyer	599
-2	Jon	Stephens	599
-

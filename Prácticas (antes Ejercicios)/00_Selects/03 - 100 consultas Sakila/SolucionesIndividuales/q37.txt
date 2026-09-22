@@ -1,5 +1,0 @@
-37:  Para cada ciudad, cuenta cuántas tiendas existen (store -> address -> city).
-city_id	city	stores_in_city
-300	Lethbridge	1
-576	Woodridge	1
-

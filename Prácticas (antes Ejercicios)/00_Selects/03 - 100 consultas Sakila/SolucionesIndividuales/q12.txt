@@ -1,5 +1,0 @@
-12:  Para cada empleado (staff), muestra el número de pagos que ha procesado.
-staff_id	first_name	last_name	payments_processed
-1	Mike	Hillyer	8054
-2	Jon	Stephens	7990
-

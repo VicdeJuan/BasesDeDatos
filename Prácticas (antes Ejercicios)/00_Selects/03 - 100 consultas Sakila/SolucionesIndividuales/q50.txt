@@ -1,4 +1,0 @@
-50:  Para cada idioma, cuenta cuántos actores distintos participan en películas de ese idioma.
-language_id	language_name	actors_in_language
-1	English	200
-

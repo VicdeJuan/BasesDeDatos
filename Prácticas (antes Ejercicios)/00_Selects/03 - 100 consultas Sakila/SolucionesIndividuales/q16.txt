@@ -1,5 +1,0 @@
-16:  Para cada tienda, cuenta cuántos empleados (staff) tiene asignados.
-store_id	staff_in_store
-1	1
-2	1
-

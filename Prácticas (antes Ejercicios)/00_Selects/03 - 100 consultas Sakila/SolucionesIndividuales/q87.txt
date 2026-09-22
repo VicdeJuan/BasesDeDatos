@@ -1,4 +1,0 @@
-87:  Para cada idioma, muestra el total de pagos de alquileres de películas en ese idioma.
-language_id	language_name	total_amount_in_language
-1	English	67406.56
-
