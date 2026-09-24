@@ -44,23 +44,72 @@ SELECT nombre,fecha_registro FROM clientes ORDER BY fecha_registro ASC; -- Ascen
 SELECT nombre,fecha_registro FROM clientes ORDER BY fecha_registro DESC; -- Descendente.
 
 -- Productos con su categoría asociada (solo columnas principales).
+SELECT nombre,precio,categoria FROM productos;
 -- IDs de pedidos y su total.
+SELECT id_pedido,coste_total FROM pedidos;
 -- IDs de pagos con su fecha de pago.
+SELECT id_pago,fecha_pago FROM pagos;
 -- Relación básica: id_pedido e id_producto de detalle_pedido.
+SELECT id_pedido,id_producto from detalle_pedido;
 
 ## 2) Filtros con WHERE (comparadores, lógicos, BETWEEN, IN, LIKE, NULL)
 
 -- Clientes registrados en 2024.
+SELECT * FROM clientes WHERE YEAR(fecha_registro) = 2024;
+
+
 -- Productos con precio > 200.
+SELECT * FROM productos; -- VER LAS COLUMNAS
+SELECT * FROM productos WHERE precio > 200;
+
 -- Pedidos con estado = 'pendiente' y total > 500.
+SELECT * FROM pedidos; -- ver las columnas
+SELECT * FROM pedidos WHERE estado = 'pendiente' AND coste_total > 500;
+
+-- OJO CON LOS TIPOS DE DATOS: '10' < '2' pero 10 > 2.  (Disclaimer)
+
+
 -- Pagos cuyo método IN ('tarjeta','paypal').
+SELECT * FROM pagos;
+SELECT * FROM pagos WHERE metodo_pago = 'tarjeta' OR metodo_pago = 'paypal';
+-- otra alternativa de resolución mejor:
+SELECT * FROM pagos WHERE metodo_pago IN ('tarjeta','paypal');
+
 -- Productos con stock entre 300 y 400.
+SELECT * FROM productos WHERE stock >= 300 AND stock <= 400;
+SELECT * FROM productos WHERE stock BETWEEN 340 AND 370;
+-- SELECT * FROM productos WHERE stock IN (300,301,302,303,304,...,400);
+
 -- Clientes de país IN ('España','México','Argentina').
+SELECT * FROM clientes WHERE pais IN ('España','México','Argentina');
+
 -- Productos cuyo nombre contenga Silla.
+SELECT * FROM productos WHERE nombre like '_illa%';
+
+-- contenga -> %palabra%
+-- empiece -> palabra%
+-- termine -> %palabra
+-- % -> cualquier conjunto de caracteres (incluyendo ninguno)
+-- _ -> un único caracter
+
+-- LA BUSQUEDA ES CASE INSENSITIVE
+
 -- Pedidos con fecha_pedido en abril de 2023.
+SELECT * FROM pedidos WHERE fecha_pedido LIKE '2023-04%';
+SELECT * FROM pedidos WHERE YEAR(fecha_pedido) = 2023 AND MONTH(fecha_pedido) = 04;
+SELECT * FROM pedidos WHERE fecha_pedido < '2023-05-01 00:00:00' 
+						AND fecha_pedido > '2023-03-31 23:59:59';
+SELECT * FROM pedidos WHERE fecha_pedido BETWEEN '2023-04-01 00:00:00' AND
+												'2023-04-30 23:59:59';
 -- Pagos con fecha_pago IS NULL (simularía no pagados si existieran).
+SELECT * FROM pagos WHERE fecha_pago is NULL;
+-- SELECT * FROM pagos WHERE fecha_pago is not NULL;
+
 -- Detalles donde cantidad sea 3 o más pero el precio_unitario menor que 50.
--- 
+SELECT * FROM detalle_pedido
+	WHERE cantidad >= 3 AND precio_unitario < 50;
+
+
 ## 3) Ordenación, límite y duplicados (ORDER BY, LIMIT, DISTINCT)
 
 -- Top 10 productos más caros.
