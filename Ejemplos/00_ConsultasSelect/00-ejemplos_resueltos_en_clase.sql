@@ -113,14 +113,41 @@ SELECT * FROM detalle_pedido
 ## 3) Ordenación, límite y duplicados (ORDER BY, LIMIT, DISTINCT)
 
 -- Top 10 productos más caros.
+-- Esto funciona sin el USE: SELECT * FROM tienda_online.productos order by precio DESC;
+SELECT 
+    *
+FROM
+    productos
+ORDER BY precio DESC
+LIMIT 10;
+
 -- Últimos 20 pedidos por fecha_pedido DESC.
+SELECT * FROM pedidos ORDER BY fecha_pedido DESC LIMIT 20;
+
 -- Clientes más recientes por fecha_registro.
+SELECT * FROM clientes ORDER BY fecha_registro DESC;
+
 -- Primeros 5 productos con menor stock.
 -- DISTINCT de categorías de productos disponibles.
+select DISTINCT categoria from productos;  -- Elimina filas duplicadas
+
+select DISTINCT id_producto,categoria from productos;  -- Aquí no hay nada duplicado.
+
+
 -- Países distintos de los clientes registrados.
+SELECT DISTINCT pais FROM clientes;
+
 -- Pagos ordenados por monto DESC (mayor a menor).
 -- Pedidos ordenados por total ASC.
 -- Primeros 10 clientes por orden alfabético del nombre.
+SELECT * FROM clientes
+order by nombre ASC;
 -- Top 5 productos más baratos en la categoría “Accesorios”.
+
+SELECT * FROM productos
+WHERE categoria = 'Accesorios'
+ORDER BY precio ASC
+LIMIT 5;
+;
 
 
