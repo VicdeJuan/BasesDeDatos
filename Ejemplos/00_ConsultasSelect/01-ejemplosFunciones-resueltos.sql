@@ -78,29 +78,117 @@ OR precio = (SELECT MIN(precio) FROM productos);
 -- Ejercicios
 
 -- 1) Calcula el stock máximo y mínimo
+SELECT min(stock),max(stock) FROM productos;
 -- 2) Es la semana del Black Friday y vamos a sacar un listado de 
 -- productos de electrónica con un descuento del 30%. Saca el listado
--- de nombre, precio antiguo, precio nuevo, categoria.
+-- de nombre, precio antiguo, precio nuevo, categoria. 
+-- (Pista: basta con que muestres los de la categoría "Electrónica")
+SELECT nombre,precio AS precio_antiguo,ROUND(precio*(0.7),2) AS precio_nuevo, categoria
+FROM productos WHERE categoria = "electronica";
+
+-- Veremos cómo sacar todos los productos aplicando un descuento solo a alagunos
+-- cuando veamos CASE y UNION.
+
 -- 3) Hemos recibido 200 unidades de cada tipo de silla. Saca un listado
 -- de nombre,stock antiguo, stock nuevo y categoria.
+SELECT nombre,stock AS stock_antiguo, stock+200 AS stock_nuevo,categoria
+FROM productos 
+WHERE nombre LIKE '%silla%' OR descripcion LIKE '%silla%';
 
 SELECT * FROM productos;
 
 ## 2. Funciones de cadena
 ### 2.1. Concatenar categoría y nombre con separador usando `CONCAT_WS`
+SELECT CONCAT_WS(' | ' , categoria,nombre) AS concatenado
+FROM productos;
+
 ### 2.2. Extraer una subcadena del nombre de cada producto (pos. 4, longitud 5)
+SELECT SUBSTRING('Laptop Dell Inspiron',4,5); -- 'Laptop Dell Inspiron -> top D
+SELECT SUBSTRING(nombre,4,5) FROM productos;
+SELECT SUBSTRING(nombre,4) FROM productos;
+
+-- git checkout -- .
+
 ### 2.3. Buscar la posición de una palabra dentro del nombre (por ejemplo 'Pro')
-### 2.3. Buscar la posición de una palabra dentro del nombre (por ejemplo 'Pro')
+SELECT LOCATE('te','hola, ¿te enteras de algo?');
+SELECT LOCATE('a','hola, ¿te enteras de algo?');
+SELECT LOCATE('a','hola, ¿te enteras de algo?',5);
+SELECT LOCATE('sí','Gaba ya lo entiende'); -- 0 porque no lo encuentra
+SELECT LOCATE('lo','Gaba ya lo entiende'); 
+
+SELECT nombre,LOCATE('pro',nombre) FROM productos;
+
+
 ### 2.4. Invertir el nombre de cada producto
+SELECT nombre,reverse(nombre) FROM productos;
+
 ### 2.5. Rellenar a la izquierda el id_producto con ceros hasta 5 dígitos
-### 2.6. Enmascarar el nombre de cliente con asteriscos según su longitud
-### 2.7. Reemplazar el símbolo '@' en el email para mostrarlo “ofuscado”
+select id_producto from productos;
+-- SELECT INSERT('ABCDEFGHI',3,4,'Z'); -- No me vale.
+-- SELECT INSERT('ABCDEFGHI',3,4,'ZZZZZZ');
+SELECT CONCAT('0000','1');
+SELECT RIGHT(CONCAT('0000',id_producto),5) FROM productos;
+-- MIÉRCOLES
+### 2.6. Enmascarar el nombre de cliente con asteriscos
+-- según su longitud
+SELECT REPEAT('Hola',8);
+SELECT 
+    nombre, 
+    REPEAT('*', LENGTH(nombre)) AS nombre_con_asterisco
+FROM
+    clientes; 
+    
+SELECT nombre,LENGTH(nombre),CHAR_LENGTH(nombre) from clientes;
+ -- OJO: ..........
+ 
+ -- ¿Hay algo que corregir? ¡Sí!
+SELECT 
+    nombre, 
+    REPEAT('*', CHAR_LENGTH(nombre)) AS nombre_con_asterisco
+FROM
+    clientes; 
+    
+
+### 2.7. Reemplazar el símbolo '@' en el email para 
+-- mostrarlo “ofuscado”
+
 ## 3. Funciones de fecha
 ### 3.1. Obtener la fecha y hora actual (NOW)
+SELECT NOW();
+-- AÑO-MES-DIA HORA:MINUTO:SEGUNDO
+
+-- bonus intermedio:
+
+-- saca dia, mes y año de cada pedido.
+SELECT 
+    fecha_pedido,
+    YEAR(fecha_pedido) AS año,
+    MONTH(fecha_pedido) AS mes,
+    DAY(fecha_pedido) AS dia,
+    DAYOFWEEK(fecha_pedido) AS dia_semana
+FROM
+    pedidos;
+
 ### 3.2. Formatear la fecha de pedido como “YYYY-MM”
+-- me lo salto
+
 ### 3.3. Extraer el trimestre (QUARTER) de la fecha de pedido
+SELECT fecha_pedido,QUARTER(fecha_pedido) FROM pedidos;
+
 ### 3.4. Último día del mes de cada pedido
+select fecha_pedido,LAST_DAY(fecha_pedido) FROM pedidos;
+
 ### 3.5. Diferencia en meses desde el registro de cada cliente hasta hoy
+SELECT 
+    fecha_registro,
+    NOW(),
+    TIMESTAMPDIFF(MONTH,fecha_registro,NOW()) AS num_meses,
+    (YEAR(NOW()) - YEAR(fecha_registro))*12 + MONTH(NOW()) - MONTH(fecha_registro)
+FROM
+    clientes;
 ### 3.6. Semana del año de cada pago (YEARWEEK)
+SELECT RIGHT(YEARWEEK(fecha_pedido),2) AS num_semana FROM pedidos;
+select weekofyear(fecha_pedido) from pedidos;
 ### 3.7. Restar 2 horas a la fecha/hora de cada pedido (SUBTIME)
 ### 3.8. Sumar 10 minutos a la fecha/hora de cada pago (ADDTIME)
+
