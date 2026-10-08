@@ -90,15 +90,66 @@ GROUP BY categoria;
 
 # PEDIDOS
 ## 18) Número total de pedidos
+select count(*) from pedidos;
+
 ## 19) Número de pedidos por estado
+select estado, count(id_pedido) from pedidos group by estado;
+
 ## 20) Total facturado (suma de la columna total)
+select sum(coste_total) from pedidos;
+
 ## 21) Promedio del total de pedidos
+select avg(coste_total) from pedidos;
+
 ## 22) Pedido de mayor y menor importe
+select max(coste_total) AS mas_caro,min(coste_total) AS mas_barato from pedidos;
+
 ## 23) Número de pedidos por año
+explain pedidos;
+select count(fecha_pedido),count(id_pedido),count(id_cliente),count(estado),count(coste_total),count(*),year(fecha_pedido) from pedidos group by year(fecha_pedido);
+-- da igual la columa que cuentes.
+
 ## 24) Total facturado por año
+SELECT 
+	YEAR(fecha_pedido) AS año,
+    SUM(coste_total) AS facturado
+FROM
+    pedidos
+GROUP BY YEAR(fecha_pedido);
+
 ## 25) Número de pedidos por mes de todos los años
+SELECT 
+	MONTH(fecha_pedido) as mes,
+    COUNT(*) AS num_pedidos
+FROM pedidos
+GROUP BY MONTH(fecha_pedido)
+ORDER BY MONTH(fecha_pedido) ASC;
+-- BONUS TRACK: Num de pedidos agrupado por mes y por año:
+SELECT 
+	YEAR(fecha_pedido) AS año,
+	MONTH(fecha_pedido) AS mes,
+    COUNT(*) AS num_pedidos
+FROM pedidos
+GROUP BY YEAR(fecha_pedido), MONTH(fecha_pedido)
+ORDER BY YEAR(fecha_pedido) ASC, MONTH(fecha_pedido) ASC;
+
 ## 26) Total facturado por estado
+SELECT 
+	estado,
+    SUM(coste_total) AS facturado
+FROM
+    pedidos
+GROUP BY estado;
+
 ## 27) Promedio del total por estado
+SELECT 
+	estado,
+    AVG(coste_total) AS facturado_medio
+FROM
+    pedidos
+GROUP BY estado;
+
+
 # DETALLE_PEDIDO
 ## 29) Número de líneas de detalle registradas
 ## 30) Total de unidades vendidas (suma de cantidad)
