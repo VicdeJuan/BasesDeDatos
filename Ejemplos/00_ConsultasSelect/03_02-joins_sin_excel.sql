@@ -68,16 +68,29 @@ FROM
 	productos JOIN detalle_pedido USING(id_producto)
     JOIN pedidos USING(id_pedido)
     GROUP BY categoria;
-    
+-- Fíjate en el resultado. ¿No es raro que salgan 128 clientes? ¿Cuántos hay en total?
 select count(*) from clientes;
 
-SELECT categoria,id_cliente
+-- Si solo hay 45 clientes, ¿cómo sale 128?
+
+SELECT categoria,id_detalle,id_cliente
 FROM 
 	productos JOIN detalle_pedido USING(id_producto)
     JOIN pedidos USING(id_pedido)
 ORDER BY id_cliente;
 
+-- El count de id_cliente cuenta las filas que salen. Y sale una fila por cada detalle,
+-- por eso los counts de la siguiente consulta salen los mismos.
 
+SELECT categoria,count(id_cliente),count(id_detalle)
+FROM 
+	productos JOIN detalle_pedido USING(id_producto)
+    JOIN pedidos USING(id_pedido)
+    GROUP BY categoria;
+
+-- Lo que queremos no es contar los id_clientes (porque eso, en realidad, está contando el número de filas) 
+-- sino que queremos contar los id_cliente DIFERENTES, DISTINTOS entre sí. Por eso,la solución es:
+    
 SELECT categoria,count(distinct id_cliente)
 FROM 
 	productos JOIN detalle_pedido USING(id_producto)

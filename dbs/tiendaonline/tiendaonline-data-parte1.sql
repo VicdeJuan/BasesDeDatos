@@ -27,6 +27,7 @@ INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad, precio_unitario) V
 (3, 3, 1, 25.00),    -- Auriculares
 (4, 4, 1, 180.00),   -- Silla Gamer
 (5, 5, 1, 210.00);   -- Escritorio
+
 INSERT INTO pagos (id_pedido, fecha_pago, metodo_pago, total_pagado) VALUES
 (1, '2023-04-01 12:00:00', 'tarjeta', 1070.00),
 (2, '2023-04-04 10:00:00', 'paypal', 320.00),
