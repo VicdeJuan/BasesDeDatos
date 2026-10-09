@@ -1,5 +1,6 @@
 -- AQUÍ SOLO ESTÁN LAS CONSULTAS QUE EJECUTAMOS PARA CONSTRUIR EL EXCEL.
 -- MIRA EN EL AV EL EXCEL CON LOS RESULTADOS DE ESTAS CONSUTLAS Y LAS EXPLICACIONES.
+use tienda_online;
 
 SELECT	clientes.id_cliente, clientes.nombre,
 	pedidos.id_pedido,pedidos.id_cliente,pedidos.fecha_pedido, pedidos.estado,pedidos.coste_total
@@ -45,7 +46,6 @@ WHERE dp.id_producto = p.id_producto;
 -- EJ 4
 SELECT 
 	c.id_cliente,c.nombre,dp.id_producto,dp.cantidad
-    
 FROM clientes as c, detalle_pedido as dp, pedidos as p
 WHERE p.id_pedido = dp.id_pedido AND p.id_cliente = c.id_cliente;
 
