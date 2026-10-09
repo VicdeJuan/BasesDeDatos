@@ -1,0 +1,263 @@
+EXAMEN RA3 · VERSIÓN C
+Resultados sobre tienda_online en MySQL 8.0.46.
+Carga: tiendaonline-schema.sql, tiendaonline-data-parte1.sql y tiendaonline-data-parte2.sql.
+Columnas separadas por tabuladores; NULL indica un valor nulo.
+
+CONSULTA 1 (15 filas)
+id_pedido	etiqueta
+1	Pedido 1 / entregado
+2	Pedido 2 / enviado
+3	Pedido 3 / pendiente
+4	Pedido 4 / cancelado
+5	Pedido 5 / entregado
+6	Pedido 6 / entregado
+7	Pedido 7 / pendiente
+8	Pedido 8 / enviado
+9	Pedido 9 / enviado
+10	Pedido 10 / entregado
+11	Pedido 11 / cancelado
+12	Pedido 12 / entregado
+13	Pedido 13 / entregado
+14	Pedido 14 / entregado
+15	Pedido 15 / entregado
+
+CONSULTA 2 (15 filas)
+id_cliente	nombre	trimestre
+1	Ana Torres	1
+2	Luis Méndez	1
+3	Carla Gómez	1
+4	David Ruiz	2
+5	Sofía Paredes	2
+6	Marta Gil	2
+7	Gonzalo Jiménez	4
+8	Daniel Moreno	4
+9	Lucía Suárez	3
+10	Alba Domínguez	4
+11	Alba Sánchez	2
+12	Hugo Gil	2
+13	Hugo Sánchez	3
+14	Nicolás González	4
+15	Andrés García	3
+
+CONSULTA 3 (10 filas)
+id_producto	nombre	diferencia_stock
+3	Auriculares Bluetooth	700
+2	Smartphone Xiaomi	680
+1	Laptop Dell Inspiron	662
+5	Escritorio	657
+4	Silla Gamer	655
+30	Organizador de cables	450
+24	Cable HDMI 2.1	150
+20	Regleta 6 tomas	50
+17	Cámara Web 1080p	40
+27	NAS 2 Bahías	40
+
+CONSULTA 4 (155 filas)
+id_pedido	importe_lineas
+1	1070.00
+2	320.00
+3	25.00
+4	180.00
+5	210.00
+6	2409.98
+7	697.90
+8	983.46
+9	630.00
+10	698.97
+11	750.00
+12	1175.67
+13	495.00
+14	1196.76
+15	878.00
+16	926.16
+17	3790.50
+18	360.00
+19	1954.00
+20	147.98
+21	79.90
+22	474.50
+23	565.97
+24	675.00
+25	1137.00
+26	2408.95
+27	1500.00
+28	4289.70
+29	487.95
+30	403.76
+31	784.95
+32	2957.97
+33	914.08
+34	420.00
+35	209.98
+36	1024.92
+37	810.60
+38	298.96
+39	700.98
+40	480.98
+41	605.70
+42	1257.87
+43	59.00
+44	876.00
+45	631.33
+46	1205.98
+47	258.99
+48	3047.00
+49	89.98
+50	1631.96
+51	308.00
+52	970.44
+53	249.99
+54	1636.97
+55	319.60
+56	260.99
+57	1690.00
+58	934.80
+59	347.44
+60	104.70
+61	129.97
+62	1132.00
+63	139.60
+64	1809.99
+65	752.56
+66	387.00
+67	1065.00
+68	799.55
+69	193.97
+70	970.97
+71	682.26
+72	123.97
+73	1713.00
+74	317.00
+75	99.96
+76	798.00
+77	1415.69
+78	862.96
+79	25.00
+80	411.97
+81	493.90
+82	248.50
+83	3243.87
+84	1544.00
+85	159.60
+86	1084.40
+87	227.06
+88	435.60
+89	3422.00
+90	759.76
+91	1218.59
+92	1753.90
+93	774.66
+94	2262.96
+95	104.70
+96	2236.86
+97	1336.00
+98	178.00
+99	625.70
+100	295.00
+101	49.00
+102	1722.00
+103	375.00
+104	726.06
+105	461.00
+106	789.96
+107	707.25
+108	747.00
+109	487.00
+110	425.94
+111	623.89
+112	988.96
+113	866.80
+114	149.79
+115	297.90
+116	847.00
+117	1601.97
+118	630.00
+119	229.00
+120	1743.98
+121	75.00
+122	1509.99
+123	257.00
+124	69.99
+125	789.58
+126	750.00
+127	390.86
+128	2783.70
+129	398.70
+130	2129.70
+131	892.10
+132	1045.00
+133	2004.59
+134	1079.88
+135	1196.00
+136	647.66
+137	415.00
+138	74.97
+139	244.50
+140	1584.00
+141	500.60
+142	1240.58
+143	443.97
+144	928.40
+145	2234.00
+146	223.70
+147	441.70
+148	158.80
+149	1095.70
+150	196.00
+151	2593.98
+152	1389.88
+153	2701.80
+154	39.90
+155	11.99
+
+CONSULTA 5 (4 filas)
+estado	pedidos
+entregado	72
+enviado	38
+pendiente	23
+cancelado	22
+
+CONSULTA 6 (29 filas)
+dia_mes	pagos
+1	8
+2	3
+3	4
+4	6
+5	3
+6	3
+7	5
+8	5
+9	5
+10	2
+11	2
+12	6
+13	4
+14	7
+15	5
+16	4
+17	6
+18	2
+19	4
+20	10
+21	5
+22	2
+23	7
+24	6
+25	3
+27	1
+29	1
+30	3
+31	4
+
+CONSULTA 7 (2 filas)
+anio	clientes	paises
+2023	16	10
+2024	6	4
+
+CONSULTA 8 (5 filas)
+categoria	exceso_stock
+Electrónica	1342
+Muebles	1312
+Accesorios	820
+Hogar	30
+Componentes	25

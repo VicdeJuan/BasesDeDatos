@@ -1,0 +1,36 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{brailleexamen}
+\usepackage[defaultfam]{montserrat}
+\usepackage[spanish,es-noshorthands,es-tabla]{babel}
+\hypersetup{hidelinks}
+\setlength{\parindent}{0pt}
+\begin{document}
+\begin{tabularx}{\textwidth}{@{}Xr@{}}
+{\color{primary}\Large\bfseries IES LUIS BRAILLE} & {\color{secondary}\bfseries BASES DE DATOS · RA3} \\
+Departamento de Informática · Coslada & Curso 2026/2027 \\
+\end{tabularx}
+{\color{primary}\rule{\textwidth}{1.2pt}}
+\begin{center}{\Large\bfseries Examen de consultas SELECT · Versión C}\end{center}
+\vspace{0.2cm}
+\begin{tabularx}{\textwidth}{|p{2.4cm}|X|p{2.2cm}|X|}
+\hline
+\textbf{Módulo:} & Bases de Datos & \textbf{Curso:} & 1.º DAM/DAW \\ \hline
+\textbf{Nombre:} & & \textbf{Apellidos:} & \\ \hline
+\textbf{Fecha:} & & \textbf{Duración:} & 75 minutos \\ \hline
+\textbf{Nota:} & \multicolumn{3}{l|}{\hspace{2cm}/ 10 puntos} \\ \hline
+\end{tabularx}
+\vspace{0.35cm}
+\begin{tcolorbox}[title=Instrucciones]
+Resuelve las ocho consultas sobre la base de datos \texttt{tienda\_online}. Entrega un único archivo \texttt{.sql} con las consultas numeradas. Cada consulta es independiente. Ordena exactamente como se pide. \textbf{Consultas 1 a 6: 1 punto cada una; consultas 7 y 8: 2 puntos cada una.} Las funciones indicadas en las preguntas 7 y 8 son obligatorias.
+\end{tcolorbox}
+{\small\textbf{Tablas disponibles:} \texttt{clientes}, \texttt{productos}, \texttt{pedidos}, \texttt{detalle\_pedido} y \texttt{pagos}. Puedes consultar su estructura con \texttt{DESCRIBE}.}
+\par\vspace{0.25cm}
+\textbf{Consulta 1 (1 punto).} Construye una etiqueta para los quince primeros pedidos con el formato «Pedido identificador / estado». Muestra también el identificador y ordena por él.\par\vspace{0.65em}
+\textbf{Consulta 2 (1 punto).} Muestra el identificador, nombre y trimestre de registro de los quince primeros clientes por identificador.\par\vspace{0.65em}
+\textbf{Consulta 3 (1 punto).} Muestra los diez productos cuya diferencia absoluta entre su stock y 350 unidades es mayor. Incluye identificador, nombre y diferencia; desempata por identificador.\par\vspace{0.65em}
+\textbf{Consulta 4 (1 punto).} Calcula por pedido la suma de los importes de sus líneas de detalle (cantidad por precio\_unitario). Muestra identificador de pedido e importe; ordena por identificador.\par\vspace{0.65em}
+\textbf{Consulta 5 (1 punto).} Cuenta los pedidos por estado. Muestra el estado y el número de pedidos, ordenados por número de pedidos descendente y estado.\par\vspace{0.65em}
+\textbf{Consulta 6 (1 punto).} Cuenta los pagos con fecha en cada día del mes, sin distinguir mes ni año. Muestra día y número de pagos, ordenados por día.\par\vspace{0.65em}
+\textbf{Consulta 7 (2 puntos).} Pista: puedes usar DAYOFYEAR(). Considera los clientes registrados después del día 180 de su año y, por año, muestra cuántos son y de cuántos países distintos proceden. Ordena por año.\par\vspace{0.65em}
+\textbf{Consulta 8 (2 puntos).} Pista: puedes usar GREATEST(). Para cada producto de precio al menos 20 euros, calcula cuántas unidades superan el umbral de 350, asignando 0 si no lo supera. Suma ese exceso por categoría y ordena por exceso descendente y categoría.\par\vspace{0.65em}
+\end{document}

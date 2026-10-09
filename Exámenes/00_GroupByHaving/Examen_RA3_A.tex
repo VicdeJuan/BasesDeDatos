@@ -1,0 +1,36 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{brailleexamen}
+\usepackage[defaultfam]{montserrat}
+\usepackage[spanish,es-noshorthands,es-tabla]{babel}
+\hypersetup{hidelinks}
+\setlength{\parindent}{0pt}
+\begin{document}
+\begin{tabularx}{\textwidth}{@{}Xr@{}}
+{\color{primary}\Large\bfseries IES LUIS BRAILLE} & {\color{secondary}\bfseries BASES DE DATOS · RA3} \\
+Departamento de Informática · Coslada & Curso 2026/2027 \\
+\end{tabularx}
+{\color{primary}\rule{\textwidth}{1.2pt}}
+\begin{center}{\Large\bfseries Examen de consultas SELECT · Versión A}\end{center}
+\vspace{0.2cm}
+\begin{tabularx}{\textwidth}{|p{2.4cm}|X|p{2.2cm}|X|}
+\hline
+\textbf{Módulo:} & Bases de Datos & \textbf{Curso:} & 1.º DAM/DAW \\ \hline
+\textbf{Nombre:} & & \textbf{Apellidos:} & \\ \hline
+\textbf{Fecha:} & & \textbf{Duración:} & 75 minutos \\ \hline
+\textbf{Nota:} & \multicolumn{3}{l|}{\hspace{2cm}/ 10 puntos} \\ \hline
+\end{tabularx}
+\vspace{0.35cm}
+\begin{tcolorbox}[title=Instrucciones]
+Resuelve las ocho consultas sobre la base de datos \texttt{tienda\_online}. Entrega un único archivo \texttt{.sql} con las consultas numeradas. Cada consulta es independiente. Ordena exactamente como se pide. \textbf{Consultas 1 a 6: 1 punto cada una; consultas 7 y 8: 2 puntos cada una.} Las funciones indicadas en las preguntas 7 y 8 son obligatorias.
+\end{tcolorbox}
+{\small\textbf{Tablas disponibles:} \texttt{clientes}, \texttt{productos}, \texttt{pedidos}, \texttt{detalle\_pedido} y \texttt{pagos}. Puedes consultar su estructura con \texttt{DESCRIBE}.}
+\par\vspace{0.25cm}
+\textbf{Consulta 1 (1 punto).} Muestra el nombre y la categoría de cada producto en una sola columna, con el formato «nombre [categoría]». Ordena por identificador de producto.\par\vspace{0.65em}
+\textbf{Consulta 2 (1 punto).} Muestra el identificador, nombre y número de mes de registro de cada cliente. Ordena por identificador de cliente.\par\vspace{0.65em}
+\textbf{Consulta 3 (1 punto).} Muestra los diez productos con mayor valor de inventario (precio por stock). Incluye identificador, nombre y valor; desempata por identificador.\par\vspace{0.65em}
+\textbf{Consulta 4 (1 punto).} Calcula la suma de coste\_total de los pedidos por año y estado. Muestra año, estado e importe, ordenados por año y por importe descendente.\par\vspace{0.65em}
+\textbf{Consulta 5 (1 punto).} Cuenta los clientes de cada país. Muestra el país y el número de clientes, ordenados por número de clientes descendente y país.\par\vspace{0.65em}
+\textbf{Consulta 6 (1 punto).} Cuenta los clientes registrados en cada día del mes, sin distinguir mes ni año. Muestra el número de día y el número de clientes, ordenados por día.\par\vspace{0.65em}
+\textbf{Consulta 7 (2 puntos).} Pista: puedes usar CHAR\_LENGTH(). Considera los productos cuyo nombre tiene al menos 16 caracteres y, por categoría, muestra cuántos hay y su precio medio redondeado a dos decimales. Ordena por cantidad descendente y categoría.\par\vspace{0.65em}
+\textbf{Consulta 8 (2 puntos).} Pista: puedes usar WEEKDAY() (lunes = 0). Para los pedidos de 2024, suma el coste por día de la semana. Muestra el día y el importe, ordenados por importe descendente y día ascendente.\par\vspace{0.65em}
+\end{document}

@@ -1,0 +1,182 @@
+EXAMEN RA3 · VERSIÓN A
+Resultados sobre tienda_online en MySQL 8.0.46.
+Carga: tiendaonline-schema.sql, tiendaonline-data-parte1.sql y tiendaonline-data-parte2.sql.
+Columnas separadas por tabuladores; NULL indica un valor nulo.
+
+CONSULTA 1 (30 filas)
+id_producto	producto_categoria
+1	Laptop Dell Inspiron [Electrónica]
+2	Smartphone Xiaomi [Electrónica]
+3	Auriculares Bluetooth [Accesorios]
+4	Silla Gamer [Muebles]
+5	Escritorio [Muebles]
+6	Monitor LG 24" [Electrónica]
+7	Teclado Mecánico [Accesorios]
+8	Ratón Inalámbrico [Accesorios]
+9	Impresora HP DeskJet [Electrónica]
+10	Tablet Samsung [Electrónica]
+11	Smartwatch Amazfit [Electrónica]
+12	Disco SSD 1TB [Componentes]
+13	Memoria RAM 16GB [Componentes]
+14	Placa Base MSI [Componentes]
+15	Fuente 650W 80+ Bronze [Componentes]
+16	Tarjeta Gráfica RTX 3060 [Componentes]
+17	Cámara Web 1080p [Accesorios]
+18	Micrófono USB [Accesorios]
+19	Altavoces 2.0 [Accesorios]
+20	Regleta 6 tomas [Hogar]
+21	Silla de Oficina [Muebles]
+22	Lámpara LED escritorio [Hogar]
+23	Mochila para portátil [Accesorios]
+24	Cable HDMI 2.1 [Accesorios]
+25	Hub USB-C 6 en 1 [Accesorios]
+26	Router Wi-Fi 6 [Electrónica]
+27	NAS 2 Bahías [Electrónica]
+28	Silla Gamer Pro [Muebles]
+29	Escritorio en L [Muebles]
+30	Organizador de cables [Accesorios]
+
+CONSULTA 2 (45 filas)
+id_cliente	nombre	mes_registro
+1	Ana Torres	1
+2	Luis Méndez	2
+3	Carla Gómez	3
+4	David Ruiz	4
+5	Sofía Paredes	4
+6	Marta Gil	5
+7	Gonzalo Jiménez	11
+8	Daniel Moreno	10
+9	Lucía Suárez	7
+10	Alba Domínguez	10
+11	Alba Sánchez	4
+12	Hugo Gil	6
+13	Hugo Sánchez	9
+14	Nicolás González	11
+15	Andrés García	8
+16	María Alonso	4
+17	María García	3
+18	Adriana Navarro	10
+19	Lucía Domínguez	6
+20	Alicia Vázquez	12
+21	Nicolás Álvarez	12
+22	Irene Ramos	4
+23	Elena López	9
+24	Nicolás Serrano	6
+25	Sofía Sánchez	1
+26	Marta Alonso	9
+27	Laura Ruiz	5
+28	Elena Jiménez	11
+29	Laura Álvarez	3
+30	José Fernández	4
+31	Juan Álvarez	10
+32	Adriana Ramos	5
+33	Sofía Alonso	6
+34	Noelia Torres	7
+35	Javier Romero	3
+36	Marta Castro	11
+37	Paula Ramírez	3
+38	Alba Martínez	7
+39	Laura Ortega	4
+40	Miguel Sánchez	10
+41	Pablo Gutiérrez	8
+42	Valeria García	9
+43	Sofía Romero	11
+44	Raúl Suárez	8
+45	Hugo Ramírez	6
+
+CONSULTA 3 (10 filas)
+id_producto	nombre	valor_inventario
+1	Laptop Dell Inspiron	759000.00
+2	Smartphone Xiaomi	329600.00
+5	Escritorio	211470.00
+4	Silla Gamer	180900.00
+16	Tarjeta Gráfica RTX 3060	93288.00
+27	NAS 2 Bahías	77190.00
+10	Tablet Samsung	75570.00
+28	Silla Gamer Pro	70990.00
+29	Escritorio en L	58968.00
+6	Monitor LG 24"	44196.60
+
+CONSULTA 4 (12 filas)
+anio	estado	importe
+2023	entregado	21685.95
+2023	enviado	5602.46
+2023	cancelado	4064.69
+2023	pendiente	3929.64
+2024	entregado	27302.45
+2024	enviado	22622.44
+2024	pendiente	12742.84
+2024	cancelado	6080.40
+2025	entregado	18212.06
+2025	enviado	8622.73
+2025	cancelado	4724.34
+2025	pendiente	3666.47
+
+CONSULTA 5 (19 filas)
+pais	clientes
+España	5
+Chile	4
+Uruguay	4
+Argentina	3
+Bolivia	3
+Italia	3
+México	3
+Paraguay	3
+Venezuela	3
+Colombia	2
+El Salvador	2
+Perú	2
+Portugal	2
+Costa Rica	1
+Ecuador	1
+Honduras	1
+Nicaragua	1
+Panamá	1
+República Dominicana	1
+
+CONSULTA 6 (26 filas)
+dia_mes	clientes
+1	1
+2	1
+3	2
+5	1
+6	1
+7	2
+8	1
+9	1
+10	4
+11	3
+12	2
+13	2
+14	2
+15	2
+17	1
+18	1
+19	2
+20	1
+21	1
+23	1
+25	2
+26	2
+27	1
+28	4
+29	2
+31	2
+
+CONSULTA 7 (5 filas)
+categoria	productos	precio_medio
+Accesorios	7	34.03
+Electrónica	4	309.50
+Componentes	3	134.33
+Hogar	1	22.00
+Muebles	1	129.00
+
+CONSULTA 8 (7 filas)
+dia_semana	importe
+4	12982.06
+5	12709.74
+6	12642.54
+0	11738.40
+1	8030.45
+3	6917.61
+2	3727.33

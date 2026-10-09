@@ -1,0 +1,36 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{brailleexamen}
+\usepackage[defaultfam]{montserrat}
+\usepackage[spanish,es-noshorthands,es-tabla]{babel}
+\hypersetup{hidelinks}
+\setlength{\parindent}{0pt}
+\begin{document}
+\begin{tabularx}{\textwidth}{@{}Xr@{}}
+{\color{primary}\Large\bfseries IES LUIS BRAILLE} & {\color{secondary}\bfseries BASES DE DATOS · RA3} \\
+Departamento de Informática · Coslada & Curso 2026/2027 \\
+\end{tabularx}
+{\color{primary}\rule{\textwidth}{1.2pt}}
+\begin{center}{\Large\bfseries Examen de consultas SELECT · Versión B}\end{center}
+\vspace{0.2cm}
+\begin{tabularx}{\textwidth}{|p{2.4cm}|X|p{2.2cm}|X|}
+\hline
+\textbf{Módulo:} & Bases de Datos & \textbf{Curso:} & 1.º DAM/DAW \\ \hline
+\textbf{Nombre:} & & \textbf{Apellidos:} & \\ \hline
+\textbf{Fecha:} & & \textbf{Duración:} & 75 minutos \\ \hline
+\textbf{Nota:} & \multicolumn{3}{l|}{\hspace{2cm}/ 10 puntos} \\ \hline
+\end{tabularx}
+\vspace{0.35cm}
+\begin{tcolorbox}[title=Instrucciones]
+Resuelve las ocho consultas sobre la base de datos \texttt{tienda\_online}. Entrega un único archivo \texttt{.sql} con las consultas numeradas. Cada consulta es independiente. Ordena exactamente como se pide. \textbf{Consultas 1 a 6: 1 punto cada una; consultas 7 y 8: 2 puntos cada una.} Las funciones indicadas en las preguntas 7 y 8 son obligatorias.
+\end{tcolorbox}
+{\small\textbf{Tablas disponibles:} \texttt{clientes}, \texttt{productos}, \texttt{pedidos}, \texttt{detalle\_pedido} y \texttt{pagos}. Puedes consultar su estructura con \texttt{DESCRIBE}.}
+\par\vspace{0.25cm}
+\textbf{Consulta 1 (1 punto).} Construye una etiqueta de cada cliente con el formato «nombre - país». Muestra también su identificador y ordena por él.\par\vspace{0.65em}
+\textbf{Consulta 2 (1 punto).} Muestra el identificador, fecha y número de día del mes de los quince primeros pedidos por identificador.\par\vspace{0.65em}
+\textbf{Consulta 3 (1 punto).} Calcula el precio de cada producto tras un descuento del 10 \%, redondeado a dos decimales. Muestra los diez precios rebajados más bajos con identificador y nombre; desempata por identificador.\par\vspace{0.65em}
+\textbf{Consulta 4 (1 punto).} Suma el total pagado por cada método de pago. Muestra método e importe, ordenados por importe descendente y método.\par\vspace{0.65em}
+\textbf{Consulta 5 (1 punto).} Calcula el precio medio de los productos por categoría. Redondea a dos decimales y ordena por media descendente y categoría.\par\vspace{0.65em}
+\textbf{Consulta 6 (1 punto).} Suma el coste de los pedidos por día del mes, sin distinguir mes ni año. Muestra día e importe, ordenados por día.\par\vspace{0.65em}
+\textbf{Consulta 7 (2 puntos).} Pista: puedes usar MOD(). Considera los productos con stock par y muestra, por categoría, cuántos productos hay y la suma de su stock. Ordena por suma descendente y categoría.\par\vspace{0.65em}
+\textbf{Consulta 8 (2 puntos).} Pista: puedes usar LAST\_DAY(). Agrupa los pagos de 2024 por último día del mes de pago y método. Muestra esa fecha, el método, el número de pagos y el importe total; ordena por fecha y método.\par\vspace{0.65em}
+\end{document}

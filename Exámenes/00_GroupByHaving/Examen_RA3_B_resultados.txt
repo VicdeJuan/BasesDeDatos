@@ -1,0 +1,167 @@
+EXAMEN RA3 · VERSIÓN B
+Resultados sobre tienda_online en MySQL 8.0.46.
+Carga: tiendaonline-schema.sql, tiendaonline-data-parte1.sql y tiendaonline-data-parte2.sql.
+Columnas separadas por tabuladores; NULL indica un valor nulo.
+
+CONSULTA 1 (45 filas)
+id_cliente	cliente_pais
+1	Ana Torres - España
+2	Luis Méndez - México
+3	Carla Gómez - Chile
+4	David Ruiz - Argentina
+5	Sofía Paredes - Perú
+6	Marta Gil - Paraguay
+7	Gonzalo Jiménez - Bolivia
+8	Daniel Moreno - Costa Rica
+9	Lucía Suárez - Bolivia
+10	Alba Domínguez - Italia
+11	Alba Sánchez - Argentina
+12	Hugo Gil - Portugal
+13	Hugo Sánchez - Uruguay
+14	Nicolás González - Venezuela
+15	Andrés García - Venezuela
+16	María Alonso - Panamá
+17	María García - Colombia
+18	Adriana Navarro - Paraguay
+19	Lucía Domínguez - Chile
+20	Alicia Vázquez - Colombia
+21	Nicolás Álvarez - El Salvador
+22	Irene Ramos - México
+23	Elena López - Uruguay
+24	Nicolás Serrano - Nicaragua
+25	Sofía Sánchez - Portugal
+26	Marta Alonso - México
+27	Laura Ruiz - Perú
+28	Elena Jiménez - Venezuela
+29	Laura Álvarez - España
+30	José Fernández - República Dominicana
+31	Juan Álvarez - España
+32	Adriana Ramos - Uruguay
+33	Sofía Alonso - Chile
+34	Noelia Torres - España
+35	Javier Romero - Italia
+36	Marta Castro - Uruguay
+37	Paula Ramírez - Chile
+38	Alba Martínez - Honduras
+39	Laura Ortega - Ecuador
+40	Miguel Sánchez - Paraguay
+41	Pablo Gutiérrez - El Salvador
+42	Valeria García - España
+43	Sofía Romero - Italia
+44	Raúl Suárez - Bolivia
+45	Hugo Ramírez - Argentina
+
+CONSULTA 2 (15 filas)
+id_pedido	fecha_pedido	dia_mes
+1	2023-04-01 10:00:00	1
+2	2023-04-03 15:30:00	3
+3	2023-04-05 12:45:00	5
+4	2023-04-10 09:10:00	10
+5	2023-04-11 13:00:00	11
+6	2025-02-06 16:22:51	6
+7	2025-07-14 10:22:00	14
+8	2024-03-09 22:58:56	9
+9	2023-10-15 10:21:56	15
+10	2024-11-24 01:35:05	24
+11	2023-11-28 17:03:33	28
+12	2025-01-06 23:09:18	6
+13	2023-07-03 04:07:56	3
+14	2023-12-20 04:45:24	20
+15	2025-08-05 07:42:28	5
+
+CONSULTA 3 (10 filas)
+id_producto	nombre	precio_rebajado
+30	Organizador de cables	8.99
+24	Cable HDMI 2.1	10.79
+20	Regleta 6 tomas	17.55
+22	Lámpara LED escritorio	19.80
+19	Altavoces 2.0	22.49
+3	Auriculares Bluetooth	22.50
+17	Cámara Web 1080p	26.10
+23	Mochila para portátil	31.41
+8	Ratón Inalámbrico	35.55
+25	Hub USB-C 6 en 1	35.91
+
+CONSULTA 4 (3 filas)
+metodo_pago	importe
+tarjeta	38095.61
+transferencia	31064.74
+paypal	26849.42
+
+CONSULTA 5 (5 filas)
+categoria	precio_medio
+Electrónica	240.74
+Muebles	187.40
+Componentes	120.40
+Accesorios	32.42
+Hogar	20.75
+
+CONSULTA 6 (30 filas)
+dia_mes	importe
+1	8859.43
+2	588.95
+3	5230.95
+4	2409.02
+5	5304.97
+6	9184.53
+7	2455.59
+8	2987.46
+9	6959.68
+10	3941.66
+11	5852.20
+12	2819.22
+13	4668.50
+14	6650.65
+15	4303.00
+16	2150.49
+17	4119.01
+18	1369.77
+19	8619.26
+20	10401.76
+21	1192.33
+22	5515.10
+23	11523.56
+24	5647.46
+25	1973.30
+27	988.96
+28	1752.55
+29	3088.80
+30	2054.49
+31	6643.82
+
+CONSULTA 7 (5 filas)
+categoria	productos	stock_total
+Accesorios	10	4910
+Electrónica	7	3702
+Muebles	3	942
+Hogar	2	780
+Componentes	2	672
+
+CONSULTA 8 (26 filas)
+fin_mes	metodo_pago	pagos	importe
+2024-01-31	paypal	1	1743.98
+2024-02-29	tarjeta	3	2483.72
+2024-02-29	transferencia	2	2004.15
+2024-03-31	paypal	3	2966.07
+2024-03-31	tarjeta	3	1132.69
+2024-03-31	transferencia	1	983.46
+2024-04-30	tarjeta	1	1954.00
+2024-05-31	paypal	2	813.87
+2024-05-31	tarjeta	1	2234.00
+2024-05-31	transferencia	2	875.41
+2024-06-30	paypal	2	1033.59
+2024-06-30	transferencia	2	1078.51
+2024-07-31	paypal	3	1134.46
+2024-07-31	tarjeta	3	467.49
+2024-07-31	transferencia	2	716.03
+2024-08-31	paypal	1	261.07
+2024-08-31	tarjeta	2	548.56
+2024-08-31	transferencia	2	896.89
+2024-09-30	tarjeta	2	1549.48
+2024-09-30	transferencia	1	4289.70
+2024-10-31	paypal	1	1809.99
+2024-10-31	transferencia	1	1327.37
+2024-11-30	tarjeta	5	3933.04
+2024-11-30	transferencia	4	6930.64
+2024-12-31	tarjeta	1	824.64
+2024-12-31	transferencia	2	828.36
