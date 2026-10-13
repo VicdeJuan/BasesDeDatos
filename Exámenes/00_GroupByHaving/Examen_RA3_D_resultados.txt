@@ -1,0 +1,235 @@
+SIMULACRO RA3 · VERSIÓN D
+Resultados recalculados sobre tienda_online en MySQL 8.0.46.
+Carga: tiendaonline-schema.sql, tiendaonline-data-parte1.sql y tiendaonline-data-parte2.sql.
+Columnas separadas por tabuladores; NULL indica un valor nulo.
+Desempates: identificador de cliente en consulta 3 y estado alfabético en consulta 6.
+Nota: los días negativos de la consulta 7 corresponden a pedidos anteriores al registro del cliente.
+
+FILAS DEL CONJUNTO DE DATOS
+clientes	productos	pedidos	lineas	pagos
+45	30	155	450	127
+
+CONSULTA 1 (10 filas)
+id_detalle	cantidad	precio_unitario	importe_linea
+73	4	750.00	3000.00
+238	4	750.00	3000.00
+254	4	750.00	3000.00
+7	3	750.00	2250.00
+44	3	750.00	2250.00
+66	3	750.00	2250.00
+140	3	750.00	2250.00
+447	3	750.00	2250.00
+69	2	750.00	1500.00
+88	2	750.00	1500.00
+
+CONSULTA 2 (15 filas)
+id_pago	fecha_pago	anio_pago
+1	2023-04-01 12:00:00	2023
+2	2023-04-04 10:00:00	2023
+3	NULL	NULL
+4	2023-04-12 09:30:00	2023
+5	2025-02-06 18:22:51	2025
+6	2024-03-10 00:58:56	2024
+7	2023-10-15 11:21:56	2023
+8	2023-10-16 10:21:56	2023
+9	2024-11-24 03:35:05	2024
+10	2025-01-07 01:09:18	2025
+11	2023-07-03 06:07:56	2023
+12	2023-12-20 06:45:24	2023
+13	2025-07-17 04:39:18	2025
+14	2024-10-31 13:27:44	2024
+15	2024-11-01 12:27:44	2024
+
+CONSULTA 3 (45 filas)
+id_cliente	contacto
+2	Luis Méndez <luis@example.com>
+10	Alba Domínguez <alba.dominguez10@example.com>
+11	Alba Sánchez <alba.sanchez11@example.com>
+12	Hugo Gil <hugo.gil12@example.com>
+13	Hugo Sánchez <hugo.sanchez13@example.com>
+30	José Fernández <jose.fernandez30@example.com>
+31	Juan Álvarez <juan.alvarez31@example.com>
+38	Alba Martínez <alba.martinez38@example.com>
+44	Raúl Suárez <raul.suarez44@example.com>
+45	Hugo Ramírez <hugo.ramirez45@example.com>
+3	Carla Gómez <carla@example.com>
+5	Sofía Paredes <sofia@example.com>
+6	Marta Gil <marta.gil6@example.com>
+7	Gonzalo Jiménez <gonzalo.jimenez7@example.com>
+9	Lucía Suárez <lucia.suarez9@example.com>
+16	María Alonso <maria.alonso16@example.com>
+17	María García <maria.garcia17@example.com>
+18	Adriana Navarro <adriana.navarro18@example.com>
+19	Lucía Domínguez <lucia.dominguez19@example.com>
+23	Elena López <elena.lopez23@example.com>
+25	Sofía Sánchez <sofia.sanchez25@example.com>
+26	Marta Alonso <marta.alonso26@example.com>
+27	Laura Ruiz <laura.ruiz27@example.com>
+28	Elena Jiménez <elena.jimenez28@example.com>
+29	Laura Álvarez <laura.alvarez29@example.com>
+32	Adriana Ramos <adriana.ramos32@example.com>
+33	Sofía Alonso <sofia.alonso33@example.com>
+36	Marta Castro <marta.castro36@example.com>
+37	Paula Ramírez <paula.ramirez37@example.com>
+39	Laura Ortega <laura.ortega39@example.com>
+43	Sofía Romero <sofia.romero43@example.com>
+4	David Ruiz <david@example.com>
+8	Daniel Moreno <daniel.moreno8@example.com>
+15	Andrés García <andres.garcia15@example.com>
+22	Irene Ramos <irene.ramos22@example.com>
+35	Javier Romero <javier.romero35@example.com>
+40	Miguel Sánchez <miguel.sanchez40@example.com>
+20	Alicia Vázquez <alicia.vazquez20@example.com>
+34	Noelia Torres <noelia.torres34@example.com>
+14	Nicolás González <nicolas.gonzalez14@example.com>
+21	Nicolás Álvarez <nicolas.alvarez21@example.com>
+24	Nicolás Serrano <nicolas.serrano24@example.com>
+41	Pablo Gutiérrez <pablo.gutierrez41@example.com>
+42	Valeria García <valeria.garcia42@example.com>
+1	Ana Torres <ana@example.com>
+
+CONSULTA 4 (12 filas)
+mes	importe
+1	6746.18
+2	10168.23
+3	12917.72
+4	4923.07
+5	18184.85
+6	13314.91
+7	13439.58
+8	9819.28
+9	13253.73
+10	9634.33
+11	16666.81
+12	10187.78
+
+CONSULTA 5 (5 filas)
+categoria	stock_medio
+Componentes	335.40
+Hogar	390.00
+Accesorios	491.00
+Electrónica	503.38
+Muebles	590.80
+
+CONSULTA 6 (82 filas)
+dia_mes	estado	pedidos
+1	entregado	5
+1	cancelado	1
+1	enviado	1
+2	cancelado	1
+2	entregado	1
+2	pendiente	1
+3	entregado	5
+3	enviado	2
+4	entregado	4
+5	entregado	4
+5	pendiente	2
+6	entregado	4
+6	cancelado	1
+6	pendiente	1
+7	entregado	2
+7	cancelado	1
+7	enviado	1
+8	entregado	4
+8	cancelado	1
+8	enviado	1
+8	pendiente	1
+9	entregado	3
+9	enviado	2
+9	pendiente	1
+10	cancelado	2
+10	enviado	1
+11	entregado	3
+11	cancelado	2
+11	enviado	1
+12	enviado	2
+12	pendiente	2
+12	cancelado	1
+12	entregado	1
+13	cancelado	2
+13	entregado	1
+13	enviado	1
+14	entregado	5
+14	cancelado	1
+14	enviado	1
+14	pendiente	1
+15	enviado	2
+15	pendiente	2
+15	entregado	1
+16	cancelado	2
+16	enviado	2
+16	entregado	1
+16	pendiente	1
+17	entregado	3
+17	enviado	2
+18	entregado	2
+18	enviado	1
+19	cancelado	2
+19	entregado	2
+19	enviado	2
+19	pendiente	1
+20	entregado	7
+20	pendiente	3
+20	enviado	2
+20	cancelado	1
+21	cancelado	1
+21	enviado	1
+21	pendiente	1
+22	entregado	3
+22	pendiente	1
+23	enviado	4
+23	entregado	3
+23	pendiente	1
+24	enviado	4
+24	entregado	2
+25	cancelado	2
+25	entregado	1
+25	pendiente	1
+27	entregado	1
+28	pendiente	2
+28	cancelado	1
+29	entregado	1
+29	enviado	1
+30	entregado	1
+30	enviado	1
+31	enviado	3
+31	entregado	2
+31	pendiente	1
+
+CONSULTA 7 (19 filas)
+pais	pedidos	dias_medios
+España	19	338.4
+Argentina	14	297.6
+Bolivia	14	120.0
+Uruguay	13	22.6
+Italia	10	211.7
+Perú	10	539.9
+Venezuela	10	44.2
+Chile	9	123.8
+Colombia	9	-265.7
+Paraguay	7	483.7
+Portugal	7	141.0
+República Dominicana	7	-228.6
+El Salvador	6	63.2
+México	6	416.0
+Ecuador	4	-59.0
+Nicaragua	4	-333.0
+Panamá	3	-16.0
+Costa Rica	2	231.0
+Honduras	1	435.0
+
+CONSULTA 8 (3 filas)
+anio	pedidos	importe_total	importe_limitado
+2023	43	35282.74	24776.63
+2024	60	68748.13	42578.57
+2025	52	35225.60	30621.03
+
+EXTRA - PAGOS DEL 29 DE FEBRERO (0 filas)
+id_pago	id_pedido	fecha_pago	total_pagado
+
+Respuesta: No: no hay registros del 29 de febrero.
+
+EXTRA - PEDIDOS DEL 29 DE FEBRERO (0 filas)
+id_pedido	id_cliente	fecha_pedido	estado	coste_total
+
+Respuesta: No: no hay registros del 29 de febrero.
