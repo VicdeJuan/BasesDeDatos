@@ -327,11 +327,113 @@ ORDER BY nombre;
 
 -- PARA CORREGIR EL JUEVES 22/10
 -- 2) País con más clientes
+/*country -> city -> address -> customer*/
+SELECT country.country AS pais, count(customer_id) AS num_clientes, count(DISTINCT customer_id) AS num_clientes
+FROM 
+	country JOIN city USING(country_id)
+			JOIN address USING(city_id)
+			JOIN customer USING(address_id)
+GROUP BY country.country_id
+ORDER BY count(customer_id)  DESC
+LIMIT 1;
+
+-- PARANOIA
+
+SELECT country.country AS pais, count(customer_id) AS num_clientes, count(DISTINCT customer_id) AS num_clientes
+FROM 
+	country JOIN city USING(country_id)
+			JOIN address USING(city_id)
+			JOIN store USING(address_id)
+            JOIN customer USING(store_id)
+GROUP BY country.country_id
+ORDER BY count(customer_id)  DESC;
+-- Incorrecto porque...
+
+
 -- 3) Tres películas con mayores ingresos por alquiler
+-- film -> inventory -> rental -> payment
+-- resuelvo en pasos intermedios
+SELECT * -- esto para ver que el join está bien hecho.
+FROM 		film
+		JOIN inventory USING(film_id)
+        JOIN rental USING(inventory_id)
+        JOIN payment USING(rental_id);
+
+-- saco solo columnas útiles para ver que voy por buen camino.
+SELECT 
+    film.film_id, rental_id, film.title, payment.amount
+FROM
+    film
+        JOIN
+    inventory USING (film_id)
+        JOIN
+    rental USING (inventory_id)
+        JOIN
+    payment USING (rental_id);
+
+
+SELECT 
+    film.film_id, film.title, SUM(payment.amount) AS ingresos_totales, AVG(payment.amount) AS ingresos_medios
+FROM
+    film
+        JOIN
+    inventory USING (film_id)
+        JOIN
+    rental USING (inventory_id)
+        JOIN
+    payment USING (rental_id)
+GROUP BY film_id
+order by SUM(payment.amount) desc
+LIMIT 3;
+
+
+SELECT 
+    film.film_id, film.title, AVG(payment.amount) AS ingresos_medios
+FROM
+    film
+        JOIN
+    inventory USING (film_id)
+        JOIN
+    rental USING (inventory_id)
+        JOIN
+    payment USING (rental_id)
+GROUP BY film_id
+order by AVG(payment.amount) desc
+LIMIT 3;
+
 -- 4) Cliente que más ha gastado
+
+-- customer -> payment
+SELECT CONCAT(customer.first_name, ' ' , customer.last_name) AS nombre, SUM(payment.amount) AS gasto_total
+FROM customer JOIN payment USING(customer_id)
+GROUP BY customer.customer_id
+ORDER BY SUM(payment.amount) DESC
+LIMIT 2;
+
+-- no hay empate, así que limit 1.
+SELECT CONCAT(customer.first_name, ' ' , customer.last_name) AS nombre, SUM(payment.amount) AS gasto_total
+FROM customer JOIN payment USING(customer_id)
+GROUP BY customer.customer_id
+ORDER BY SUM(payment.amount) DESC
+LIMIT 1;
+
+
+-- 11) Películas con más de tres actores y duración menor a 90 minutos
+SELECT 
+    title, length, COUNT(actor_id)
+FROM
+    film_actor
+        JOIN
+    film ON film_actor.film_id = film.film_id
+        AND film.length < 90
+GROUP BY film.film_id
+HAVING COUNT(actor_id) > 3;
+
 
 -- PARA EL VIERNES 23/10
 -- 5) Ingreso promedio por alquiler en cada tienda
+
+
 -- 6) Ventas totales por categoría ordenadas
 -- 7) Actores con al menos diez películas de categorías distintas
 
@@ -339,4 +441,3 @@ ORDER BY nombre;
 -- 8) Tiendas con más stock disponible
 -- 9) Películas que nunca han sido alquiladas
 -- 10) Diez películas con mayor diferencia entre coste de reposición y tarifa de alquiler
--- 11) Películas con más de tres actores y duración menor a 90 minutos
