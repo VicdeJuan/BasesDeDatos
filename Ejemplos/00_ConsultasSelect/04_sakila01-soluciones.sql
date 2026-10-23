@@ -433,9 +433,128 @@ HAVING COUNT(actor_id) > 3;
 -- PARA EL VIERNES 23/10
 -- 5) Ingreso promedio por alquiler en cada tienda
 
+/*POSIBLES CAMINOS:
+OP1: payment -> customer -> [address] -> store
+OP2: payment -> staff -(store_id)-> store 
+OP3: payment -> staff -(manager_staff_id)-> store. ¿Qué pasa con los pagos que gestiona un staff que no es manager? (ver más abajo. (?))
+OP4: payment -> rental -> inventory -> store
+OP5: payment -> rental -> staff -(store_id)-> store 
+OP6: payment -> rental -> staff -(manager_staff_id)-> store ¿Qué pasa con los alquileres que gestiona un staff que no es manager?
+*/
+-- OP1: payment -> customer -> Store
+SELECT store_id, avg(amount), count(amount), sum(amount) -- saco count y sum para comparar
+FROM payment JOIN customer using(customer_id) JOIN store USING(store_id)
+GROUP BY store_id;
+-- invalidada si encuentro un customer que ha hecho pagos/rentals en tiendas distintas
+-- invalidada si un cliente se ha cambiado de tienda en un momento dado.
+
+-- pagos en una tienda distinta a la tienda asignada.
+SELECT customer.customer_id,customer.store_id AS tienda_asignada, inventory.store_id AS tienda_utilizada
+FROM customer JOIN payment USING(customer_id) JOIN rental USING(rental_id) 
+JOIN inventory USING(inventory_id)
+WHERE customer.store_id !=  inventory.store_id;
+
+-- rentals en una tienda distinta a la tienda asignada.
+SELECT customer.customer_id,customer.store_id AS tienda_asignada, inventory.store_id AS tienda_utilizada
+FROM customer JOIN rental USING(customer_id) 
+JOIN inventory USING(inventory_id)
+WHERE customer.store_id !=  inventory.store_id;
+-- CONCLUSIÓN: La opción 1 es incorrecta.
+
+-- El problema de Víctor
+SELECT p.payment_id,p.customer_id,p.rental_id,r.rental_id,r.inventory_id,r.customer_id
+FROM payment p JOIN rental r ON p.customer_id = r.customer_id;
+
+-- OTRO OJO PIOJO: Muy interesante esto. Gracias por la pregunta.
+
+-- OP2: payment -> staff -(store_id)-> store 
+SELECT store_id, avg(amount), count(amount), sum(amount) -- saco count y sum para comparar
+FROM payment JOIN staff USING(staff_id) JOIN store USING(store_id)
+GROUP BY store_id;
+-- invalidada si encuentro un staff que ha gestionado pagos/rentals en tiendas distintas
+-- invalidada si un staff se ha cambiado de tienda en un momento dado.
+-- Trabajo para el alumno: encuentra la consulta para invalidar esta opción 2.
+
+-- OJO PIOJO: Cuando estudies para el examen, asegúrate de que has entendido este ejemplo bien.
+-- Tanto las soluciones como la esencia del problema.
+-- Si no lo estás entendiendo, pregunta.
+
+-- OP4: payment -> rental -> inventory -> store
+SELECT store_id, avg(amount), count(amount), sum(amount) -- saco count y sum para comparar
+FROM payment JOIN rental USING(rental_id)  JOIN inventory USING(inventory_id) JOIN store USING(store_id)
+GROUP BY store_id;
+-- Esta es la correcta. La mayoría tenía razón, lo siento, Adrián.
+
+
+
+-- ***********************************
+-- OP5: payment -> rental -> staff -(store_id)-> store 
+SELECT store_id, avg(amount), count(amount), sum(amount) -- saco count y sum para comparar
+FROM payment JOIN rental USING(rental_id) JOIN staff USING(staff_id) JOIN store USING(store_id)
+GROUP BY store_id;
+-- ¿Será esta correcta?
+
 
 -- 6) Ventas totales por categoría ordenadas
+-- Camino: payment -> ... -> category
+SELECT name,count(*) AS num_ventas_totales,sum(amount) AS ingresos_totales
+FROM category JOIN film_category USING(category_id)
+	JOIN film USING(film_id) JOIN inventory USING(film_id)
+    JOIN rental USING(inventory_id) JOIN payment USING(rental_id)
+GROUP BY category_id
+ORDER BY sum(amount);
+
+-- ¿Cuál es la correcta? Lo dijo muy clarito Víctor en clase. Menos mal que lo apuntaste en tus apuntes.
+
 -- 7) Actores con al menos diez películas de categorías distintas
+-- RESPUESTA A: Las 2 consultas juntas
+SELECT CONCAT(first_name, ' ', last_name) AS actor, COUNT(DISTINCT category_id),COUNT(category_id)
+FROM actor JOIN film_actor USING(actor_id) JOIN film USING(film_id)
+	JOIN film_category USING(film_id)
+GROUP BY actor_id
+HAVING COUNT(DISTINCT category_id) > 10;
+-- esto contesta a "Actores que han trabajado en, al menos, 10 categorías distintas.
+-- Depende: ¿una película puede tener varias categorías? Vamos a verlo:
+
+SELECT film_id, COUNT(category_id)
+FROM film_category
+GROUP BY film_id
+HAVING COUNT(category_id) > 1;
+
+-- RESPUESTA B:
+SELECT CONCAT(first_name, ' ', last_name) AS actor, COUNT(DISTINCT category_id),COUNT(distinct film_id)
+FROM actor JOIN film_actor USING(actor_id) JOIN film USING(film_id)
+	JOIN film_category USING(film_id)
+GROUP BY actor_id
+HAVING COUNT(DISTINCT category_id) > 10 AND COUNT(distinct film_id) > 10;
+
+
+-- (?)
+
+-- OP2: payment -> staff -(store_id)-> store 
+SELECT *
+FROM payment JOIN staff USING(staff_id) JOIN store USING(store_id);
+
+
+SELECT *
+FROM payment JOIN staff USING(staff_id) JOIN store USING(store_id)
+WHERE manager_staff_id != staff_id;
+
+-- OP3: payment -> staff -(manager_staff_id)-> store
+SELECT *
+FROM payment JOIN staff USING(staff_id) JOIN store USING(manager_staff_id) ;
+-- error porque store.manager_staff_id no existe
+
+SELECT *
+FROM payment JOIN staff USING(staff_id) JOIN store ON store.manager_staff_id = staff.staff_id;
+
+SELECT *
+FROM payment JOIN staff USING(staff_id) JOIN store ON store.manager_staff_id = staff.staff_id
+WHERE manager_staff_id != staff_id;
+-- ¿Por qué no sale ninguno? ¿Será que solo hay 2 staffs y cada uno es manager de una tienda?
+
+-- ¿Será que ...?
+select * from staff;
 
 -- ya VEREMOS:
 -- 8) Tiendas con más stock disponible
