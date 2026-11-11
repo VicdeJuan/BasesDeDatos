@@ -1,0 +1,78 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[spanish,es-noshorthands,es-tabla]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[defaultfam]{montserrat}
+\usepackage{graphicx,tabularx,array,xcolor,colortbl,geometry,fancyhdr,enumitem,needspace}
+\geometry{left=2cm,right=2cm,top=2.1cm,bottom=1.8cm}
+\definecolor{LBcian}{HTML}{016D84}
+\definecolor{LBcereza}{HTML}{A3195B}
+\definecolor{LBgris}{HTML}{EFEFEF}
+\definecolor{LBtexto}{HTML}{333333}
+\setlength{\parindent}{0pt}
+\setlength{\headheight}{15pt}
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.35}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\color{LBcian}\bfseries IES LUIS BRAILLE}
+\fancyhead[R]{\small Bases de Datos \textperiodcentered{} RA3}
+\fancyfoot[L]{\small Departamento de Informática \textperiodcentered{} Coslada}
+\fancyfoot[R]{\small Página \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\begin{document}
+% Recursos institucionales de la plantilla del repositorio.
+\noindent\begin{tabularx}{\textwidth}{@{}Xcc@{}}
+  \begin{minipage}[c]{0.55\textwidth}
+    {\color{LBcian}\Large\bfseries IES LUIS BRAILLE}\\[2pt]
+    {\color{LBtexto}\small Departamento de Informática \textperiodcentered{} Coslada}
+  \end{minipage}
+  & \includegraphics[width=1.45cm,height=1.3cm,keepaspectratio]{../../../Recursos/Examenes/PlantillaExamenLaTeX/img/logoUE.jpg}
+  & \includegraphics[width=3.0cm,height=1.3cm,keepaspectratio]{../../../Recursos/Examenes/PlantillaExamenLaTeX/img/logoCAM.png}
+\end{tabularx}
+\vspace{2mm}\color{LBcian}\rule{\textwidth}{1.2pt}\color{LBtexto}
+\vspace{1mm}
+\begin{center}
+  {\color{LBcian}\Large\bfseries 20 consultas SQL de práctica \textperiodcentered{} Sakila}\\[2mm]
+  {\color{LBcereza}\small\bfseries BASES DE DATOS \textperiodcentered{} 1.º DAW \textperiodcentered{} RA3}
+\end{center}
+\noindent\begin{tabularx}{\textwidth}{|>{\bfseries}p{2.9cm}|X|>{\bfseries}p{2.4cm}|X|}\hline
+Módulo & Bases de Datos & Curso & 1.º DAW \\ \hline
+Nombre & & Apellidos & \\ \hline
+Base de datos & Sakila (MySQL) & Evaluación & RA3 \\ \hline
+\end{tabularx}
+\medskip\noindent\begin{tabularx}{\textwidth}{|X|}\hline
+\cellcolor{LBgris}\color{LBcian}\bfseries INDICACIONES \\ \hline
+\begin{minipage}{\dimexpr\linewidth-2\tabcolsep\relax}\vspace{2mm}\small \begin{itemize}[leftmargin=4mm,nosep]\item Resuelve \textbf{cada ejercicio con una consulta SQL independiente}.
+\item Los enunciados especifican qué filas, columnas, cálculos y ordenación debe contener el resultado; \textbf{no indican cómo construir la consulta}.
+\item El alumnado puede traer en papel la hoja de consulta (cheat sheet) y debe traer también en papel el diagrama de \mbox{Workbench}. Se permiten anotaciones en ambos documentos.
+\item Prioriza la corrección del resultado y una sintaxis razonablemente correcta. Pueden existir distintas soluciones válidas.
+\item Practica con las tablas originales de Sakila. Los ejercicios se han diseñado para resolverse sin uniones externas, subconsultas, vistas ni CTE.
+\end{itemize}\vspace{2mm}\end{minipage} \\ \hline
+\end{tabularx}\medskip
+\section*{Bloque 1}\vspace{-3mm}\color{LBcereza}\rule{\textwidth}{0.5pt}\color{LBtexto}
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 1. Tarifas según el plazo de alquiler}\par\smallskip Para cada plazo de alquiler en días de las películas, muestra el número de días (\texttt{rental\_duration}), la cantidad de películas con ese plazo y la tarifa media de alquiler (\texttt{rental\_rate}), redondeada a dos decimales. Ordena por número de días ascendente.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 2. Clientes y longitud de su apellido}\par\smallskip Muestra el nombre, el apellido, la ciudad de residencia y el número de caracteres del apellido de los clientes activos cuyo apellido tenga 10 o más caracteres. Ordena por longitud del apellido descendente y, en caso de empate, por apellido y nombre ascendentes.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 3. Películas G por categoría}\par\smallskip Considera únicamente las películas clasificadas como \texttt{G}. Para cada categoría que tenga alguna película de esa clasificación, muestra el nombre de la categoría, la cantidad de películas y el coste medio de reposición, redondeado a dos decimales. Ordena por cantidad descendente y, en caso de empate, por categoría ascendente.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 4. Actores con nombre iniciado por D}\par\smallskip Considera únicamente los actores cuyo nombre comienza por \texttt{D}. Muestra su nombre, su apellido y la cantidad de películas en las que aparecen, pero solo para aquellos que participen en 15 o más películas. Ordena por cantidad de películas descendente y, en caso de empate, por apellido y nombre ascendentes.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 5. Alquileres y películas diferentes por tienda y mes}\par\smallskip Para cada tienda y cada año y mes en que se hayan realizado alquileres de sus ejemplares, muestra el identificador de la tienda, el año, el número de mes, la cantidad total de alquileres y el número de películas diferentes que se alquilaron. Una misma película alquilada varias veces cuenta varias veces en el total de alquileres, pero una sola vez en el número de películas diferentes. Ordena por año y mes ascendentes y, después, por identificador de tienda.\par\medskip
+\section*{Bloque 2}\vspace{-3mm}\color{LBcereza}\rule{\textwidth}{0.5pt}\color{LBtexto}
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 6. Pagos según su importe}\par\smallskip Para cada importe (\texttt{amount}) registrado en los pagos, muestra el importe, el número de pagos con ese importe y la suma total correspondiente a esos pagos. Ordena por importe ascendente.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 7. Películas y coste de alquiler por día}\par\smallskip Muestra el título de la película, el idioma, su tarifa de alquiler, los días de alquiler permitidos y su coste de alquiler por día, calculado dividiendo la tarifa entre esos días y redondeado a dos decimales (alias \texttt{coste\_por\_dia}). Incluye únicamente las películas cuyo coste por día sin redondear sea superior a 1,00. Ordena por coste por día descendente y, en caso de empate, por título ascendente.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 8. Clientes por ciudad de la India}\par\smallskip Considera únicamente las ciudades del país \texttt{India} en las que vive al menos un cliente. Para cada una, muestra el nombre de la ciudad y el número de clientes que viven en ella. Ordena por número de clientes descendente y, en caso de empate, por ciudad ascendente.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 9. Categorías con películas de más de dos horas}\par\smallskip Considera únicamente las películas cuya duración supere los 120 minutos. Para cada categoría, muestra el nombre de la categoría, la cantidad de esas películas y su duración media en minutos, redondeada a un decimal. Incluye únicamente las categorías que tengan 10 o más películas de esa duración. Ordena por cantidad descendente y, en caso de empate, por categoría ascendente.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 10. Cobros superiores a tres unidades por empleado y mes}\par\smallskip Considera únicamente los pagos de importe superior a 3,00. Para cada empleado y cada año y mes de pago, muestra su nombre, su apellido, el año, el número de mes, el número de pagos, el número de clientes diferentes que efectuaron esos pagos y el importe total cobrado, redondeado a dos decimales. Ordena por año y mes ascendentes y, dentro de cada mes, por apellido y nombre del empleado.\par\medskip
+\section*{Bloque 3}\vspace{-3mm}\color{LBcereza}\rule{\textwidth}{0.5pt}\color{LBtexto}
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 11. Clientes activos e inactivos por tienda}\par\smallskip Para cada tienda a la que están adscritos clientes, muestra el identificador de la tienda (\texttt{store\_id}), el número total de clientes, el número de clientes activos y el número de clientes inactivos. Ordena por identificador de tienda ascendente.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 12. Pagos de importe elevado}\par\smallskip Por cada pago de al menos 8,00, muestra el nombre y apellido del cliente en una sola columna llamada \texttt{cliente}, la fecha y hora del pago, el importe pagado y el nombre y apellido del empleado que lo registró en una columna llamada \texttt{empleado}. Ordena por importe descendente y, en caso de empate, por fecha de pago ascendente.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 13. Alquileres devueltos por tienda y clasificación}\par\smallskip Considera únicamente los alquileres que tienen fecha de devolución registrada. Para cada tienda y cada clasificación por edades de las películas alquiladas, muestra el identificador de la tienda, la clasificación, el número de alquileres devueltos y la duración media en minutos de las películas correspondientes, redondeada a un decimal. Ordena por tienda y, dentro de cada tienda, por clasificación ascendente.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 14. Países con al menos diez clientes activos}\par\smallskip Considera únicamente los clientes activos. Para cada país en el que residan, muestra el nombre del país y el número de clientes activos, pero incluye solamente los países que tengan 10 o más. Ordena por número de clientes descendente y, en caso de empate, por país ascendente.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 15. Alquileres de clientes cuyo nombre empieza por A, según día de la semana}\par\smallskip Considera únicamente los alquileres realizados por clientes cuyo nombre comienza por \texttt{A}. Para cada empleado que tramitó esos alquileres y cada día de la semana de la fecha del alquiler, muestra el nombre y apellido del empleado, el número de día (domingo = 1; sábado = 7), el número total de alquileres y la cantidad de clientes diferentes que los realizaron. Ordena por apellido y nombre del empleado ascendentes y, después, por número de día ascendente.\par\medskip
+\section*{Bloque 4}\vspace{-3mm}\color{LBcereza}\rule{\textwidth}{0.5pt}\color{LBtexto}
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 16. Alquileres por año y mes}\par\smallskip Para cada año y mes de la fecha de alquiler, muestra el año, el número de mes, la cantidad total de alquileres, la cantidad de alquileres con devolución registrada y la cantidad de alquileres sin devolución registrada. Ordena por año y mes ascendentes.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 17. Clientes de países terminados en a}\par\smallskip Muestra el nombre, apellido y correo electrónico de cada cliente activo, así como su ciudad y su país de residencia. Incluye únicamente los países cuyo nombre termina en la letra \texttt{a}, sin distinguir entre mayúsculas y minúsculas. Ordena por país, ciudad y apellido ascendentes.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 18. Alquileres de la tienda 2 desde junio de 2005}\par\smallskip Considera únicamente los alquileres de ejemplares de la tienda 2, realizados desde el 1 de junio de 2005, inclusive. Para cada clasificación por edades de las películas alquiladas, muestra la clasificación, la cantidad de alquileres y la tarifa media de alquiler de esas películas, redondeada a dos decimales. Ordena por clasificación ascendente.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 19. Actores cuyo nombre empieza por M en películas PG-13}\par\smallskip Considera únicamente los actores cuyo nombre comienza por \texttt{M} y las películas con clasificación \texttt{PG-13} en las que hayan participado. Muestra el nombre, el apellido, la cantidad de esas películas y su duración media en minutos, redondeada a un decimal, pero solo para los actores que aparezcan en 4 o más películas \texttt{PG-13}. Ordena por cantidad de películas descendente y, en caso de empate, por apellido y nombre ascendentes.\par\medskip
+\needspace{5\baselineskip}\par\medskip{\color{LBcian}\bfseries 20. Alquileres y clientes diferentes por clasificación y mes}\par\smallskip Para cada clasificación por edades de película y cada año y mes de alquiler, muestra la clasificación, el año, el número de mes, la cantidad total de alquileres y el número de clientes diferentes que realizaron esos alquileres. Si un mismo cliente alquiló varias películas de la misma clasificación durante el mismo mes, debe contarse una sola vez como cliente diferente en ese grupo. Ordena por año y mes ascendentes y, dentro de cada mes, por clasificación ascendente.\par\medskip
+
+\end{document}

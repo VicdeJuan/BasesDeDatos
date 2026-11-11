@@ -1,0 +1,79 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[spanish,es-noshorthands,es-tabla]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[defaultfam]{montserrat}
+\usepackage{graphicx,tabularx,array,xcolor,colortbl,geometry,fancyhdr,enumitem,needspace}
+\geometry{left=2cm,right=2cm,top=2.1cm,bottom=1.8cm}
+\definecolor{LBcian}{HTML}{016D84}
+\definecolor{LBcereza}{HTML}{A3195B}
+\definecolor{LBgris}{HTML}{EFEFEF}
+\definecolor{LBtexto}{HTML}{333333}
+\setlength{\parindent}{0pt}
+\setlength{\headheight}{15pt}
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.35}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\color{LBcian}\bfseries IES LUIS BRAILLE}
+\fancyhead[R]{\small Bases de Datos \textperiodcentered{} RA3}
+\fancyfoot[L]{\small Departamento de Informática \textperiodcentered{} Coslada}
+\fancyfoot[R]{\small Página \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\begin{document}
+% Recursos institucionales de la plantilla del repositorio.
+\noindent\begin{tabularx}{\textwidth}{@{}Xcc@{}}
+  \begin{minipage}[c]{0.55\textwidth}
+    {\color{LBcian}\Large\bfseries IES LUIS BRAILLE}\\[2pt]
+    {\color{LBtexto}\small Departamento de Informática \textperiodcentered{} Coslada}
+  \end{minipage}
+  & \includegraphics[width=1.45cm,height=1.3cm,keepaspectratio]{../../../Recursos/Examenes/PlantillaExamenLaTeX/img/logoUE.jpg}
+  & \includegraphics[width=3.0cm,height=1.3cm,keepaspectratio]{../../../Recursos/Examenes/PlantillaExamenLaTeX/img/logoCAM.png}
+\end{tabularx}
+\vspace{2mm}\color{LBcian}\rule{\textwidth}{1.2pt}\color{LBtexto}
+\vspace{1mm}
+\begin{center}
+  {\color{LBcian}\Large\bfseries Examen de consultas SQL \textperiodcentered{} Modelo D}\\[2mm]
+  {\color{LBcereza}\small\bfseries BASES DE DATOS \textperiodcentered{} 1.º DAW \textperiodcentered{} RA3}
+\end{center}
+\noindent\begin{tabularx}{\textwidth}{|>{\bfseries}p{2.9cm}|X|>{\bfseries}p{2.4cm}|X|}\hline
+Módulo & Bases de Datos & Curso & 1.º DAW \\ \hline
+Nombre & & Apellidos & \\ \hline
+Fecha & & Calificación & \cellcolor{LBgris}\hspace{1.2cm}/ 10 \\ \hline
+Base de datos & Sakila (MySQL) & Evaluación & RA3 \\ \hline
+\end{tabularx}
+\medskip\noindent\begin{tabularx}{\textwidth}{|X|}\hline
+\cellcolor{LBgris}\color{LBcian}\bfseries INSTRUCCIONES \\ \hline
+\begin{minipage}{\dimexpr\linewidth-2\tabcolsep\relax}\vspace{2mm}\small \begin{itemize}[leftmargin=4mm,nosep]\item Escribe una \textbf{consulta SQL independiente} para cada ejercicio. Cada enunciado describe las columnas, las filas y la ordenación que debe mostrar el resultado.
+\item El alumnado puede traer en papel la hoja de consulta (cheat sheet) y debe traer también en papel el diagrama de \mbox{Workbench}. Se permiten anotaciones en ambos documentos.
+\item Se valorará la \textbf{corrección lógica} y una sintaxis \textbf{razonablemente correcta}. Un error menor de sintaxis no anula toda la puntuación si se entiende claramente la solución propuesta.
+\item Se admitirán distintas soluciones que produzcan el resultado solicitado. El examen se limita a consultas sobre una tabla y relaciones internas entre tablas: no se admiten uniones externas, productos cartesianos, subconsultas, vistas ni CTE.
+\end{itemize}\vspace{2mm}\end{minipage} \\ \hline
+\end{tabularx}\medskip
+\section*{Ejercicios}\vspace{-3mm}\color{LBcereza}\rule{\textwidth}{0.5pt}\color{LBtexto}
+\needspace{5\baselineskip}
+\par\medskip\noindent{\color{LBcian}\bfseries Consulta 1 -- Alquileres procesados por empleado}\hfill{\color{LBcereza}\bfseries 2 puntos}\par\smallskip
+Para cada empleado identificado por \texttt{staff\_id}, muestra su identificador, el número total de alquileres que procesó, el número de alquileres devueltos (con fecha de devolución registrada) y el número de alquileres sin fecha de devolución. Ordena por identificador de empleado ascendente.\par\medskip
+\needspace{5\baselineskip}
+\par\medskip\noindent{\color{LBcian}\bfseries Consulta 2 -- Películas largas y sus categorías}\hfill{\color{LBcereza}\bfseries 2 puntos}\par\smallskip
+Muestra el título de cada película, el nombre de su categoría y la duración en horas, redondeada a dos decimales y con el alias \texttt{duracion\_horas}. Incluye únicamente las películas cuya duración calculada sea superior a 2,50 horas. Ordena por duración descendente y, en caso de empate, por título ascendente.\par\medskip
+\needspace{5\baselineskip}
+\par\medskip\noindent{\color{LBcian}\bfseries Consulta 3 -- Copias de películas R por tienda}\hfill{\color{LBcereza}\bfseries 2 puntos}\par\smallskip
+Considera únicamente las películas con clasificación \texttt{R}. Para cada tienda, muestra su identificador (\texttt{store\_id}), el número de ejemplares físicos de esas películas y el coste total de reposición de esos ejemplares (sumando el coste de reposición de la película correspondiente a cada ejemplar). Ordena por identificador de tienda ascendente.\par\medskip
+\newpage
+\needspace{5\baselineskip}
+\par\medskip\noindent{\color{LBcian}\bfseries Consulta 4 -- Países con suficientes clientes activos}\hfill{\color{LBcereza}\bfseries 2 puntos}\par\smallskip
+Considera únicamente los clientes activos. Para cada país, muestra el nombre del país, el número de clientes activos residentes en él y el número de ciudades diferentes donde viven esos clientes. Incluye solamente los países con 5 o más clientes activos. Ordena por número de clientes descendente y, en caso de empate, por país ascendente.\par\medskip
+\needspace{5\baselineskip}
+\par\medskip\noindent{\color{LBcian}\bfseries Consulta 5 -- Pagos mensuales de clientes cuyo nombre empieza por B}\hfill{\color{LBcereza}\bfseries 2 puntos}\par\smallskip
+Considera únicamente los pagos de clientes cuyo nombre comienza por \texttt{B}. Para cada año y mes de la fecha del pago, muestra el año, el número de mes, el número total de pagos y el importe medio por pago, redondeado a dos decimales. Ordena cronológicamente por año y mes ascendentes.\par\medskip
+\medskip\noindent\begin{tabularx}{\textwidth}{|X|}\hline
+\cellcolor{LBgris}\color{LBcian}\bfseries CRITERIOS DE CORRECCIÓN \\ \hline
+\begin{minipage}{\dimexpr\linewidth-2\tabcolsep\relax}\vspace{2mm}\small Cada consulta vale 2 puntos. Se concederá puntuación parcial y no se penalizará dos veces un error arrastrado.\par\smallskip \begin{itemize}[leftmargin=4mm,nosep]\item \textbf{Datos y expresiones:} selección adecuada de columnas, cálculos y condiciones sencillas, así como los alias y el orden solicitado.
+\item \textbf{Relación entre los datos:} utilización de las tablas y correspondencias necesarias para obtener los registros correctos, sin omisiones ni duplicaciones indebidas.
+\item \textbf{Resumen de información:} obtención correcta de totales, cantidades, medias, grupos y condiciones sobre los resultados cuando sean necesarios.
+\item \textbf{Corrección general:} resultado coherente y sintaxis razonablemente correcta. Se aceptarán formulaciones alternativas que resuelvan lo pedido.
+\end{itemize}\vspace{2mm}\end{minipage} \\ \hline
+\end{tabularx}\medskip
+
+\end{document}
