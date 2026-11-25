@@ -108,7 +108,12 @@ FROM rental R RIGHT JOIN customer C ON (r.customer_id = c.customer_id AND YEAR(r
 # Muestra exclusivamente los ejemplares que nunca se han alquilado. Devuelve el identificador del ejemplar, su película y el identificador del alquiler (nulo). Utiliza 
 
 ### 18. Ciudades sin direcciones (agrupación) 
-# Muestra las ciudades que no tienen ninguna dirección registrada, junto con el número de direcciones y el máximo identificador de dirección. Ordena por ciudad.
+# Muestra las ciudades que no tienen ninguna dirección registrada,
+# junto con el número de direcciones y el máximo identificador de dirección. Ordena por ciudad.
+SELECT city_id,city,COUNT(address_id) AS num_direcciones, MAX(address_id) AS max_identificador
+FROM city LEFT JOIN address USING(city_id)
+WHERE address_id IS NULL
+GROUP BY city_id;
 
 
 
@@ -116,6 +121,87 @@ FROM rental R RIGHT JOIN customer C ON (r.customer_id = c.customer_id AND YEAR(r
 ### 19. Películas con menos de 3 copias en tienda 1 
 # Muestra el identificador y título de las películas que tienen menos de tres ejemplares en la tienda 1, 
 # incluidos los que tienen cero. Añade el recuento de ejemplares y el máximo identificador de ejemplar. Ordena por recuento y título.
+
+SELECT f.film_id,f.title,count(i.inventory_id)
+FROM 
+inventory i RIGHT JOIN film f ON i.film_id = f.film_id
+GROUP BY f.film_id
+HAVING count(i.inventory_id) < 3;
+
+-- Le añadimos lo de la tienda 1
+
+SELECT f.film_id,f.title,count(i.inventory_id)
+FROM 
+inventory i RIGHT JOIN film f ON i.film_id = f.film_id
+WHERE i.store_id = 1
+GROUP BY f.film_id
+HAVING count(i.inventory_id) < 3;
+
+-- Esto es incorrecto porque falta la 14, por ejemplo.
+-- La peli 14 NO TIENE COPIAS EN NINGUNA TIENDA, 
+-- por tanto, no tiene copias en la tienda 1.
+-- Ergo, debería salir en esta consulta.
+
+-- SOLUCIÓN:
+SELECT f.film_id,f.title,count(i.inventory_id)
+FROM 
+inventory i RIGHT JOIN film f ON i.film_id = f.film_id AND i.store_id = 1
+GROUP BY f.film_id
+HAVING count(i.inventory_id) < 3;
+
+-- ¿Por qué tiene que ir en el ON y no en el WHERE?  [A CONTESTAR POR EL ALUMNO]
+
+
+-- otra posible solución:
+SELECT f.film_id,f.title,i.inventory_id,i.store_id
+FROM inventory i RIGHT JOIN film f ON i.film_id = f.film_id
+WHERE store_id = 1 OR store_id is null;
+-- Aquí entra al cóctel toda la tabla film y toda la tabla inventory.
+-- Esto da lugar a filas con store_id 1,2 o null. Como filtro en el where,
+-- esas filas con store_id = 2 van a desaparecer. Si la peli no tenía copias
+-- en la tienda 1, al desaparecer han desaparecido y el count no va a poder
+-- contarlas porque no están.
+
+SELECT f.film_id,f.title,i.inventory_id,i.store_id
+FROM 
+inventory i RIGHT JOIN film f ON i.film_id = f.film_id AND store_id = 1;
+-- Aquí sin embargo, entra al cóctel toda la tabla film CON UNA PARTE de la tabla inventory.
+-- Esto da lugar a filas con store_id 1 o null. No puede haber filas con store_id = 2.
+-- ¿Qué store_id van a tener las filas que en la query anterior tenían un store_id = 2?
+-- Esas filas tendrán un NULL en store_id. Se puede comprobar con las películas 2 y 3.
+-- En la consulta anterior, la peli 2 y la peli 3 no salen (porque tenían store_id=2). En esta,
+-- SÍ salen la 2 y la 3 porque se les ha puesto un null en store_id.
+
+-- CONCLUSIÓN: 
+
+
+SELECT f.film_id,f.title,count(i.inventory_id), MAX(i.inventory_id)
+FROM 
+inventory i RIGHT JOIN film f ON i.film_id = f.film_id AND store_id = 1
+GROUP BY f.film_id
+HAVING count(i.inventory_id) < 3
+ORDER BY count(i.inventory_id) DESC, title;
+
+
+
+
+SELECT f.film_id,f.title,i.film_id,i.inventory_id,i.store_id
+FROM film f LEFT JOIN inventory i on f.film_id = i.film_id
+WHERE f.film_id IN (1,2,3,4,5,14);
+
+SELECT f.film_id,f.title,i.film_id,i.inventory_id,i.store_id
+FROM film f LEFT JOIN inventory i on f.film_id = i.film_id
+WHERE f.film_id IN (1,2,3,4,5,14) AND store_id = 1;
+
+
+SELECT f.film_id,f.title,i.film_id,i.inventory_id,i.store_id
+FROM film f LEFT JOIN inventory i on f.film_id = i.film_id  AND store_id = 1
+WHERE f.film_id IN (1,2,3,4,5,14);
+
+
+SELECT f.film_id,f.title
+FROM film f 
+WHERE film_id IN (1,2,3,4,5,14);
 
 ### 20. Películas jamás alquiladas (varios JOIN) 
 
