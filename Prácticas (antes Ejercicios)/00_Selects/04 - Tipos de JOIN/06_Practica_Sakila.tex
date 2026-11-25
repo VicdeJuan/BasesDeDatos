@@ -1,0 +1,202 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage[defaultfam]{montserrat}
+\usepackage[a4paper,hmargin=23mm,top=24mm,bottom=22mm]{geometry}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage[unicode,hidelinks]{hyperref}
+
+\definecolor{brailleazul}{HTML}{016D84}
+\definecolor{braillecereza}{HTML}{A3195B}
+\definecolor{linea}{HTML}{CEDDDF}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\pagestyle{plain}
+
+\newcommand{\codigo}[1]{{\fontfamily{\ttdefault}\fontseries{m}\selectfont\detokenize{#1}}}
+\newcommand{\titulo}[1]{%
+  {\small IES Luis Braille \hfill Bases de Datos · 1.º DAW}\par
+  \vspace{5mm}
+  {\fontsize{25}{30}\selectfont\bfseries\color{brailleazul}#1\par}
+  \vspace{4mm}
+  {\color{brailleazul}\hrule height 0.7pt}
+  \vspace{6mm}
+}
+\newcommand{\apartado}[1]{%
+  \par\addvspace{4mm}{\bfseries\color{brailleazul}#1}\par\vspace{1mm}%
+}
+\newenvironment{consulta}[2]{%
+  \par\addvspace{6mm}%
+  \pdfbookmark[0]{Consulta #1. #2}{consulta-#1}%
+  \begin{minipage}{\linewidth}
+    {\color{linea}\hrule height 0.5pt}\vspace{3mm}
+    {\fontsize{16}{20}\selectfont\bfseries
+      {\color{braillecereza}#1}\hspace{0.75em}{\color{brailleazul}#2}\par}%
+    \vspace{2mm}%
+}{%
+  \end{minipage}\par
+}
+\newcommand{\salida}[2]{%
+  \par\vspace{2mm}%
+  {\small
+    \hangindent=21mm \hangafter=1
+    \makebox[21mm][l]{\bfseries Columnas}#1\par
+    \vspace{0.7mm}%
+    \hangindent=21mm \hangafter=1
+    \makebox[21mm][l]{\bfseries Orden}#2\par
+  }%
+}
+
+% Cada TXT contiene la cabecera y todas las filas devueltas por MySQL.
+\ExplSyntaxOn
+\ior_new:N \l_sakila_archivo_ior
+\tl_new:N \l_sakila_linea_tl
+\seq_new:N \l_sakila_campos_seq
+\tl_new:N \l_sakila_cabecera_tl
+\tl_new:N \l_sakila_filas_tl
+\int_new:N \l_sakila_total_int
+\int_const:Nn \c_sakila_limite_int {10}
+\cs_generate_variant:Nn \seq_set_split:Nnn { Nxn, NxV }
+
+\cs_new_protected:Npn \sakila_leer_resultados:n #1
+  {
+    \ior_open:Nn \l_sakila_archivo_ior { Resultados_06_Sakila/consulta-#1.txt }
+    \ior_str_get:NN \l_sakila_archivo_ior \l_sakila_linea_tl
+    \seq_set_split:NxV \l_sakila_campos_seq { \char_generate:nn {9} {12} } \l_sakila_linea_tl
+    \seq_map_indexed_inline:Nn \l_sakila_campos_seq
+      {
+        \int_compare:nNnT {##1} > {1} { \tl_put_right:Nn \l_sakila_cabecera_tl { & } }
+        \tl_put_right:Nn \l_sakila_cabecera_tl { \codigo{##2} }
+      }
+
+    \ior_str_map_inline:Nn \l_sakila_archivo_ior
+      {
+        \int_incr:N \l_sakila_total_int
+        \int_compare:nNnF { \l_sakila_total_int } > { \c_sakila_limite_int }
+          {
+            \seq_set_split:Nxn \l_sakila_campos_seq { \char_generate:nn {9} {12} } { ##1 }
+            \tl_put_right:Nx \l_sakila_filas_tl { \seq_use:Nn \l_sakila_campos_seq { & } \exp_not:N \\ }
+          }
+      }
+    \ior_close:N \l_sakila_archivo_ior
+  }
+
+\NewDocumentCommand{\resultados}{mm}
+  {
+    \group_begin:
+    \sakila_leer_resultados:n {#1}
+    \par\addvspace{6mm}
+    \small
+    {\bfseries\color{brailleazul} Resultados~esperados}
+    \enspace
+    (primeras~
+      \int_min:nn { \c_sakila_limite_int } { \l_sakila_total_int }~
+      de~\int_use:N \l_sakila_total_int\ filas)
+    \par\vspace{1mm}
+    \renewcommand{\arraystretch}{1.12}
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}#2@{}}
+      \toprule
+      \l_sakila_cabecera_tl \\
+      \midrule
+      \l_sakila_filas_tl
+      \bottomrule
+    \end{tabular*}
+    \par\vspace{2mm}
+    \textbf{Resultado~completo}\enspace\codigo{consulta-#1.txt}\par
+    \group_end:
+  }
+\ExplSyntaxOff
+
+\begin{document}
+\raggedright
+\titulo{Consultas con JOIN en Sakila}
+
+\apartado{Entrega}
+Entrega las siete consultas \codigo{SELECT} en un único archivo
+\codigo{practica_sakila.sql} y numéralas del 21 al 27 con comentarios.
+Usa el tipo de \codigo{JOIN} indicado y respeta los nombres y el orden
+de las columnas y de las filas.\par\smallskip
+Usa MySQL 8 con la base de datos \codigo{sakila} y compara tu salida
+con la muestra que aparece debajo de cada consulta. Los archivos de
+\codigo{Resultados_06_Sakila} contienen todas las filas.
+
+\apartado{Qué vas a practicar}
+Composiciones externas, filtrado y ordenación de filas, funciones de agregado,
+agrupación y filtrado de grupos. Usa \codigo{ON} para limitar las coincidencias,
+\codigo{WHERE} para filtrar antes de agrupar y \codigo{HAVING} para filtrar los grupos.
+
+\begin{consulta}{21}{Copias en la tienda 1}
+Con \codigo{LEFT JOIN}, muestra las películas \codigo{PG} o \codigo{PG-13}
+que tienen menos de tres copias en la tienda 1. Incluye las que tienen cero
+copias en esa tienda, aunque tengan copias en la otra.
+\salida{\codigo{film_id}, \codigo{title}, \codigo{rating}, \codigo{num_ejemplares}.}{Menor número de copias primero. En caso de empate, por título de A a Z.}
+\end{consulta}
+\resultados{21}{rlrr}
+\clearpage
+
+\begin{consulta}{22}{Películas sin copias en la tienda 2}
+Con \codigo{RIGHT JOIN}, muestra las películas que duran al menos 120 minutos
+y tienen cero copias en la tienda 2, aunque tengan copias en la otra.
+\salida{\codigo{film_id}, \codigo{title}, \codigo{length}, \codigo{num_ejemplares}.}{Por título de A a Z.}
+\end{consulta}
+\resultados{22}{rlrr}
+\clearpage
+
+\begin{consulta}{23}{Clientes de la tienda 1 con pocos alquileres}
+Con \codigo{LEFT JOIN}, muestra los clientes activos asignados a la tienda 1
+que hicieron menos de tres alquileres en mayo de 2005. Incluye a quienes hicieron
+cero. Cuenta los alquileres del cliente sin filtrar por la tienda de la copia.
+\salida{\codigo{customer_id}, \codigo{first_name}, \codigo{last_name}, \codigo{num_alquileres}.}{De menos a más alquileres. Si empatan, por \codigo{customer_id} ascendente.}
+\end{consulta}
+\resultados{23}{rllr}
+\clearpage
+
+\begin{consulta}{24}{Pagos de clientes de la tienda 2}
+Con \codigo{RIGHT JOIN}, muestra los clientes activos asignados a la tienda 2
+con al menos cinco pagos individuales de importe igual o superior a 6,00.
+Cuenta y suma solo los pagos que cumplen ese importe mínimo.
+\salida{\codigo{customer_id}, \codigo{first_name}, \codigo{last_name}, \codigo{num_pagos}, \codigo{importe_total}.}{De más a menos pagos. Si empatan, por \codigo{customer_id} ascendente.}
+\end{consulta}
+\resultados{24}{rllrr}
+\clearpage
+
+\begin{consulta}{25}{Copias y alquileres en la tienda 1}
+Con dos \codigo{LEFT JOIN}, muestra las películas \codigo{PG-13} de al menos 90
+minutos cuyas copias de la tienda 1 sumaron menos de cinco alquileres en mayo de
+2005. Incluye las películas con cero alquileres, también si tienen cero copias en
+esa tienda. Cuenta cada copia de la tienda 1 una sola vez, se haya alquilado o no
+en mayo.
+\salida{\codigo{film_id}, \codigo{title}, \codigo{num_ejemplares}, \codigo{num_alquileres}.}{Menor número de alquileres primero. En caso de empate, por título de A a Z.}
+\end{consulta}
+\resultados{25}{rlrr}
+\clearpage
+
+\begin{consulta}{26}{Actores en películas de clasificación R}
+Con dos \codigo{RIGHT JOIN}, muestra los actores cuyo apellido empieza por B
+y que participaron en al menos cuatro películas de clasificación \codigo{R}.
+Cuenta únicamente sus películas de esa clasificación.
+\salida{\codigo{actor_id}, \codigo{first_name}, \codigo{last_name}, \codigo{num_peliculas_r}.}{De más a menos películas. Si empatan, por \codigo{actor_id} ascendente.}
+\end{consulta}
+\resultados{26}{rllr}
+
+\clearpage
+
+\begin{consulta}{27}{Alquileres y pagos de películas R en la tienda 2}
+Usa tres \codigo{LEFT JOIN} para enlazar \codigo{film}, \codigo{inventory},
+\codigo{rental} y \codigo{payment}.
+
+Muestra las películas de clasificación \codigo{R} que duran al menos 120 minutos
+y cuyas copias de la tienda 2 se alquilaron menos de tres veces en mayo de 2005.
+Incluye las películas con cero alquileres, incluso si no tienen copias en esa tienda.
+
+Cuenta cada alquiler una sola vez, con independencia de sus pagos. Para esos
+alquileres, cuenta y suma únicamente los pagos de importe igual o superior a 4,00.
+Si no hay pagos que cumplan ese mínimo, muestra cero en el recuento y en la suma.
+\salida{\codigo{film_id}, \codigo{title}, \codigo{num_alquileres},
+\codigo{num_pagos}, \codigo{importe_total}.}{De más a menos alquileres. Si empatan, por título de A a Z.}
+\end{consulta}
+\resultados{27}{rlrrr}
+
+\end{document}
