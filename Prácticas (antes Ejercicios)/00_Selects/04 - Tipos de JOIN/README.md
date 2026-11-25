@@ -9,3 +9,5 @@ Práctica de Bases de Datos de 1.º DAW. Resuelve las consultas 21 a 27 usando M
 Entrega un único archivo `practica_sakila.sql`, con las consultas numeradas mediante comentarios. Respeta los JOIN indicados, los nombres y el orden de columnas y filas.
 
 Fecha de entrega en Moodle **3 de diciembre de 2026 a las 23:59, hora de Madrid**.
+
+[Entrega en Moodle](https://aulavirtual33.educa.madrid.org/ies.luisbraille.coslada/mod/assign/view.php?id=157453)
