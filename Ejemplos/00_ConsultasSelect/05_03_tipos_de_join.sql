@@ -108,8 +108,10 @@ FROM rental R RIGHT JOIN customer C ON (r.customer_id = c.customer_id AND YEAR(r
 # Muestra exclusivamente los ejemplares que nunca se han alquilado. Devuelve el identificador del ejemplar, su película y el identificador del alquiler (nulo). Utiliza 
 
 ### 18. Ciudades sin direcciones (agrupación) 
-
 # Muestra las ciudades que no tienen ninguna dirección registrada, junto con el número de direcciones y el máximo identificador de dirección. Ordena por ciudad.
+
+
+
 
 ### 19. Películas con menos de 3 copias en tienda 1 
 # Muestra el identificador y título de las películas que tienen menos de tres ejemplares en la tienda 1, 
