@@ -4,24 +4,86 @@
 
 
 -- Consulta 01. Actores con al menos 30 películas.
+SELECT *
+FROM  
+	(SELECT actor_id,count(distinct film_id) AS columna_subtabla
+	FROM film_actor
+	GROUP BY actor_id) AS nombre_tabla
+WHERE columna_subtabla > 30;
 
+WITH nombre_tabla AS 
+	(SELECT actor_id,count(distinct film_id) AS columna_subtabla
+		FROM film_actor
+		GROUP BY actor_id)
+SELECT * FROM nombre_tabla
+WHERE columna_subtabla > 30;
 
--- Consulta 02. Películas en inglés.
+-- Consulta 02. Películas en inglés.ç
+select * from language;
+SELECT * FROM film JOIN language USING(language_id) WHERE name like 'English';
 
+SELECT * FROM film
+WHERE language_id = (SELECT language_id FROM language WHERE name like 'English');
 
 -- Consulta 03. Películas en inglés — segunda versión con WITH.
 
 
 -- Consulta 04. Películas que superan la duración media.
+SELECT avg(length) FROM film;
+SELECT * FROM FILM
+WHERE length > 115.2720;
+
+
+SELECT * FROM FILM
+WHERE length > (SELECT avg(length) FROM film);
 
 
 -- Consulta 05. Películas que superan la duración media — segunda versión con WITH.
-
+-- no aporta mucho
 
 -- Consulta 06. Reparto de ALONE TRIP.
+SELECT * FROM film WHERE title LIKE 'ALONE TRIP';
 
+SELECT a.*,f.film_id, f.title FROM film f JOIN film_actor fa ON f.film_id = fa.film_id AND f.title LIKE 'ALONE TRIP'
+	JOIN actor a ON a.actor_id = fa.actor_id;
+
+SELECT * 
+FROM actor a JOIN film_actor fa ON a.actor_id = fa.actor_id
+	JOIN (SELECT * FROM film WHERE title LIKE 'ALONE TRIP') AS subquery on fa.film_id = subquery.film_id;
 
 -- Consulta 07. Reparto de ALONE TRIP — segunda versión con WITH.
+WITH subquery AS (SELECT film_id FROM film WHERE title LIKE 'ALONE TRIP')
+SELECT * 
+FROM actor a JOIN film_actor fa ON a.actor_id = fa.actor_id
+	JOIN subquery ON fa.film_id = subquery.film_id;
+    
+-- OTRA SOLUCIÓN
+SELECT * 
+FROM actor a JOIN film_actor fa 
+	ON a.actor_id = fa.actor_id AND fa.film_id = (SELECT film_id FROM film WHERE title LIKE 'ALONE TRIP');
+
+SELECT * 
+FROM actor a JOIN film_actor fa USING(actor_id) 
+WHERE fa.film_id = (SELECT film_id FROM film WHERE title LIKE 'ALONE TRIP');
+
+-- Saca en cuántas películas han trabajado los actores que salen en ALONE TRIP.
+-- 1) Listado de actores
+WITH actores_de_alone_trip AS 
+	(SELECT * 
+	FROM actor a JOIN film_actor fa USING(actor_id) 
+	WHERE fa.film_id = (SELECT film_id FROM film WHERE title LIKE 'ALONE TRIP'))
+SELECT actor_id,count(film_id)
+FROM actores_de_alone_trip a JOIN film_actor fa USING(actor_id)
+GROUP by actor_id;
+
+
+WITH actores_de_alone_trip AS 
+	(SELECT actor_id -- daba error poner un *
+	FROM actor a JOIN film_actor fa USING(actor_id) 
+	WHERE fa.film_id = (SELECT film_id FROM film WHERE title LIKE 'ALONE TRIP'))
+SELECT actor_id,count(film_id)
+FROM actores_de_alone_trip a JOIN film_actor fa USING(actor_id)
+GROUP by actor_id;
 
 
 -- Consulta 08. Películas de la categoría "Children" — Paso 1.
