@@ -85,18 +85,56 @@ SELECT actor_id,count(film_id)
 FROM actores_de_alone_trip a JOIN film_actor fa USING(actor_id)
 GROUP by actor_id;
 
+WITH actores_de_alone_trip AS 
+	(SELECT actor_id -- daba error poner un *
+	FROM actor a JOIN film_actor fa USING(actor_id) 
+	WHERE fa.film_id = (SELECT film_id FROM film WHERE title LIKE 'ALONE TRIP'))
+SELECT * FROM actores_de_alone_trip;
+
+
+WITH actores_de_alone_trip AS 
+	(SELECT actor_id -- daba error poner un *
+	FROM actor a JOIN film_actor fa USING(actor_id) 
+	WHERE fa.film_id = (SELECT film_id FROM film WHERE title LIKE 'ALONE TRIP'))
+SELECT actor_id, count(film_id)
+FROM film_actor
+WHERE actor_id IN (SELECT * FROM actores_de_alone_trip)
+GROUP BY actor_id;
 
 -- Consulta 08. Películas de la categoría "Children" — Paso 1.
+-- SOL 1
+SELECT film.*
+FROM film JOIN film_category USING(film_id)
+where film_category.category_id = (SELECT category_id FROM category WHERE name LIKE 'Children');
 
+-- SOL 2:
+-- Obtén el listado de IDs de películas de la categoría en una subconsulta. 
+-- Como ese listado es una columna, podemos plantear un tipo 3:
+WITH ids_peliculas_children AS 
+		(
+			SELECT film_id FROM film_category JOIN category USING (category_id)
+            WHERE name LIKE 'Children'
+        )
+SELECT film_id,title -- no puedo poner en el select la info de la subconsulta porque no está en el from
+FROM film 
+WHERE film_id IN (SELECT * FROM ids_peliculas_children);
 
--- Consulta 09. Películas de la categoría "Children" — Paso 2.
+WITH ids_peliculas_children AS 
+		(
+			SELECT film_id FROM film_category 
+			WHERE category_id = (SELECT category_id from category WHERE name LIKE 'Children')
+        )
+SELECT film_id,title -- no puedo poner en el select la info de la subconsulta porque no está en el from
+FROM film 
+WHERE film_id IN (SELECT * FROM ids_peliculas_children);
 
-
--- Consulta 10. Películas de la categoría "Children" — Paso 3.
-
-
--- Consulta 11. Películas de la categoría "Children" — segunda versión con WITH — Paso 3.
-
+-- SOL 3:
+-- Con with, cojo una parte de la tabla category para el cóctel del join.
+WITH subtabla_de_categoria AS 
+	(SELECT * FROM category WHERE name LIKE 'Children')
+SELECT film_id,title,name
+FROM film JOIN film_category  USING(film_id)
+	JOIN subtabla_de_categoria USING(category_id);
 
 -- Consulta 12. Clientes con al menos un alquiler.
 
