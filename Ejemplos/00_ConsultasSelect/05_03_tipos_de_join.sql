@@ -1,3 +1,4 @@
+use sakila;
 ### 1. Idiomas y películas 
 
 # Muestra el identificador y nombre de todos los idiomas, junto con el identificador y título de sus películas. Incluye los idiomas que no tengan películas. Ordena por idioma y título.
@@ -205,5 +206,27 @@ WHERE film_id IN (1,2,3,4,5,14);
 
 ### 20. Películas jamás alquiladas (varios JOIN) 
 
-# Muestra las películas que nunca se han alquilado, considerando todos sus ejemplares en las dos tiendas. Devuelve identificador, título, número de alquileres y máximo identificador de alquiler. Ordena por título.
+# Muestra las películas que nunca se han alquilado, considerando todos sus ejemplares en las dos tiendas. 
+# Devuelve identificador, título, número de alquileres y máximo identificador de alquiler. Ordena por título.
+
+SELECT inventory_id, film_id,count(rental_id)
+FROM rental RIGHT JOIN inventory USING(inventory_id)
+GROUP BY inventory_id
+HAVING count(rental_id) = 0;
+
+
+SELECT inventory_id, film_id, rental_id
+FROM rental RIGHT JOIN inventory USING(inventory_id)
+WHERE rental_id is null; -- esto son los inventories que nunca se han alquilado.
+-- PERO SE PIDEN PELÍCULAS
+
+select film.film_id,  title, count(rental_id),count(inventory_id), count(distinct inventory_id)
+-- from rental RIGHT JOIN inventory USING(inventory_id) RIGHT JOIN film USING(film_id)
+FROM film LEFT JOIN inventory ON film.film_id = inventory.film_id LEFT JOIN rental USING(inventory_id)
+GROUP BY film.film_id
+HAVING count(rental_id) = 0;
+-- HAVING COUNT(rental_id) != count(inventory_id);
+
+
+
 
