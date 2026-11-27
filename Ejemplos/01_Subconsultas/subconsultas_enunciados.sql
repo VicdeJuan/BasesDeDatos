@@ -1,3 +1,4 @@
+use sakila;
 -- Enunciados de la guía de subconsultas.
 -- Este archivo contiene solo comentarios para practicar la escritura de SQL.
 -- Esquema de referencia: Sakila.
@@ -85,6 +86,19 @@ SELECT actor_id,count(film_id)
 FROM actores_de_alone_trip a JOIN film_actor fa USING(actor_id)
 GROUP by actor_id;
 
+
+    
+    
+SELECT actor_id,count(film_id)
+FROM (SELECT actor_id -- daba error poner un *
+	FROM actor a JOIN film_actor fa USING(actor_id) 
+	WHERE fa.film_id = (SELECT film_id FROM film WHERE title LIKE 'ALONE TRIP')) as actores_alone_trip
+JOIN film_actor fa USING(actor_id)
+GROUP by actor_id;
+
+
+
+
 WITH actores_de_alone_trip AS 
 	(SELECT actor_id -- daba error poner un *
 	FROM actor a JOIN film_actor fa USING(actor_id) 
@@ -103,9 +117,11 @@ GROUP BY actor_id;
 
 -- Consulta 08. Películas de la categoría "Children" — Paso 1.
 -- SOL 1
+
+
 SELECT film.*
 FROM film JOIN film_category USING(film_id)
-where film_category.category_id = (SELECT category_id FROM category WHERE name LIKE 'Children');
+where film_category.category_id = (SELECT category_id FROM category WHERE name LIKE 'Children'); 
 
 -- SOL 2:
 -- Obtén el listado de IDs de películas de la categoría en una subconsulta. 
@@ -136,10 +152,46 @@ SELECT film_id,title,name
 FROM film JOIN film_category  USING(film_id)
 	JOIN subtabla_de_categoria USING(category_id);
 
--- Consulta 12. Clientes con al menos un alquiler.
 
+-- Consulta 12. Clientes con al menos un alquiler.
+SELECT customer.*, count(rental_id) FROM customer JOIN rental USING(customer_id)
+GROUP BY customer_id;
+
+SELECT distinct customer_id FROM rental;
+
+SELECT * FROM customer WHERE customer_id IN (SELECT distinct customer_id FROM rental);
+
+-- Clientes sin alquiler
+SELECT * FROM customer WHERE customer_id NOT IN (SELECT distinct customer_id FROM rental);
+
+SELECT customer.*, count(rental_id) FROM customer LEFT JOIN rental USING(customer_id)
+WHERE rental_id IS NULL
+GROUP BY customer_id;
 
 -- Consulta 13. Clientes con al menos un alquiler — segunda versión con WITH.
+-- No aporta mucho.
+
+-- Consulta bonus: Saca el listado de nombres de actores 
+-- que han participado en películas que duran más de 150 minutos
+select count(*) from actor;
+
+WITH peliculas_de_mas_de_150 AS (select * from film where length > 150)
+SELECT distinct actor.*
+FROM peliculas_de_mas_de_150 JOIN film_actor USING(film_id) 
+	JOIN actor USING(actor_id);
+-- otra forma:
+WITH peliculas_de_mas_de_150 AS (select film_id from film where length > 150)
+SELECT distinct actor.*
+FROM film_actor 
+	JOIN actor USING(actor_id)
+WHERE film_id IN (select * from peliculas_de_mas_de_150);
+
+-- otra forma:
+SELECT distinct actor_id FROM film_actor JOIN film USING(film_id) WHERE length > 150;
+WITH ids_actores_en_pelis_largas AS 
+	(SELECT distinct actor_id FROM film_actor JOIN film USING(film_id) WHERE length > 150)
+SELECT *
+FROM actor JOIN  ids_actores_en_pelis_largas USING(actor_id);
 
 
 -- Consulta 14. Películas sin alquileres con NOT EXISTS.
